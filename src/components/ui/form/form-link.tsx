@@ -6,12 +6,14 @@ export function FormLink({
   question,
   href = "",
   className,
+  linkClasses,
   children,
 }: ComponentProps<"link"> & {
   question?: string;
+  linkClasses: string
 }) {
   return (
-    <p className="text-gray-400 text-sm">
+    <p className={cn("text-gray-400 text-sm", className || '')}>
       {question && (
         <>
           <span>{question}</span> &nbsp;
@@ -19,7 +21,7 @@ export function FormLink({
       )}
       <Link
         href={href}
-        className={cn("text-blue-600 font-semibold mt-4 transition hover:border-b hover:border-blue-600", className || '')}
+        className={cn("text-blue-600 font-semibold mt-4 transition hover:border-b hover:border-blue-600", linkClasses || '')}
       >
         {children}
       </Link>
