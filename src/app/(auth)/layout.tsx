@@ -1,4 +1,4 @@
-import LoginBanner from '@/features/auth/components/login-banner';
+import AuthBanner from '@/features/auth/components/auth-banner';
 import { JSX } from 'react';
 export default function AuthLayout({ children }: { children: React.ReactNode }): JSX.Element {
     return (
@@ -7,7 +7,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }):
                 <div>
                     {children}
                 </div>
-                <LoginBanner />
+                <AuthBanner />
             </div>
         </div>
     )
