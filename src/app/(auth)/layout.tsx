@@ -3,8 +3,8 @@ import { JSX } from 'react';
 export default function AuthLayout({ children }: { children: React.ReactNode }): JSX.Element {
     return (
         <div className='p-8 h-full'>
-            <div className='relative h-full flexs justify-between items-center'>
-                <div>
+            <div className='relative h-full flex justify-between items-center gap-8'>
+                <div className='flex-1'>
                     {children}
                 </div>
                 <AuthBanner />
