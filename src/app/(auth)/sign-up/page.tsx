@@ -1,5 +1,5 @@
 import { JSX } from 'react';
-export default function LoginPage(): JSX.Element {
+export default function SignUpPage(): JSX.Element {
     return (
         <div>
             
