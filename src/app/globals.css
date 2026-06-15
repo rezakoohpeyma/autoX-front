@@ -3,9 +3,11 @@
 :root {
   --primary: #162D3A;
   --secondary: #F6F6F6;
+  --link: #1E4AE9;
 }
  
 @theme inline {
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
+  --color-link: var(--link)
 }
