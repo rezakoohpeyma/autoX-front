@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
 
-export function FormInputWraper({
+export function FormWraper({
   children,
   className,
 }: ComponentProps<"div">) {
