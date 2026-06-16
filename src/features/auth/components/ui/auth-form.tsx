@@ -22,7 +22,8 @@ export default function AuthForm<T extends FieldValues>({
             className="w-97 mx-auto flex justify-center items-center flex-col gap-12"
             inputFieldClasses='[&>label]:text-primary'
             inputBoxClasses='text-primary/80 border border-primary/80 h-12 rounded-xl p-4 mt-2'
-        >
+            inputErrorClasses="border-red-500 text-red-500"
+        >   
             {children}
         </Form> 
     )
