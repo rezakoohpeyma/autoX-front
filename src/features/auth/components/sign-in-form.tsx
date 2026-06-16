@@ -1,0 +1,58 @@
+'use client';
+import Form from '@/components/ui/form/form';
+import { JSX } from 'react';
+import { SubmitHandler } from 'react-hook-form';
+import { signInSchema, SignInType } from '../schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormTitle } from '@/components/ui/form/form-tiitle';
+import { FormWraper } from '@/components/ui/form/form-wraper';
+import { Input } from '@/components/ui/form/input';
+import { FormLink } from '@/components/ui/form/form-link';
+import SubmitBtn from './submit-btn';
+import AuthForm from './ui/auth-form';
+import SocialSignIn from './social-signin';
+import Copyright from '@/components/ui/copyright';
+export default function SignInForm(): JSX.Element {
+    const onSubmit: SubmitHandler<SignInType> = () => {}
+
+    const formOpt = {
+        resolver: zodResolver(signInSchema),
+    }
+    return (
+        <AuthForm<SignInType> 
+            onSubmit={onSubmit} 
+            formOpt={formOpt}
+        >    
+            <FormWraper>
+                <FormTitle className='text-primary mb-7 font-semibold text-[36px] tracking-wider'>
+                    Welcome Back &nbsp;
+                    <span>👋</span>
+                </FormTitle>
+                <p className='font-normal text-[20px] text-primary/80'>
+                    Today is a new day. It&#39;s your day. You shape it. 
+                    Sign in to start managing your projects.
+                </p>
+            </FormWraper>
+            <FormWraper>
+                <Input 
+                    nameId='username'
+                    placeholder='At least 2 characters'
+                >
+                    Username
+                </Input>
+                <Input 
+                    nameId='password'
+                    placeholder='At least 8 characters'
+                >
+                    Password
+                </Input>
+                <FormLink href='#' className='my-6 text-right' linkClasses='text-link font-normal text-base'>Forget Password?</FormLink>
+                <SubmitBtn />
+            </FormWraper>
+            <SocialSignIn />
+            <FormLink question="Don't you have an account?" href='/sign-up' className='text-primary text-lg mt-[48px]' linkClasses='text-link font-normal text-lg'>Sign up</FormLink>
+            <Copyright />
+        </AuthForm>
+    )
+}
+
