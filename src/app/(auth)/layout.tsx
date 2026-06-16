@@ -4,7 +4,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }):
     return (
         <div className='p-8 h-full'>
             <div className='relative h-full flex justify-between items-center gap-8'>
-                <div className='flex-1'>
+                <div className='flex-1 overflow-y-scroll py-20 h-screen'>
                     {children}
                 </div>
                 <AuthBanner />
