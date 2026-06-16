@@ -9,5 +9,5 @@
 @theme inline {
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
-  --color-link: var(--link)
+  --color-link: var(--link);
 }
