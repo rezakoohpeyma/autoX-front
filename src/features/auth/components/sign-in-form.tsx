@@ -41,6 +41,7 @@ export default function SignInForm(): JSX.Element {
                     Username
                 </Input>
                 <Input 
+                    type='password'
                     nameId='password'
                     placeholder='At least 8 characters'
                 >
@@ -49,9 +50,11 @@ export default function SignInForm(): JSX.Element {
                 <FormLink href='#' className='my-6 text-right' linkClasses='text-link font-normal text-base'>Forget Password?</FormLink>
                 <SubmitBtn />
             </FormWraper>
-            <SocialSignIn />
-            <FormLink question="Don't you have an account?" href='/sign-up' className='text-primary text-lg mt-[48px]' linkClasses='text-link font-normal text-lg'>Sign up</FormLink>
-            <Copyright />
+            <FormWraper className='text-center'>
+                <SocialSignIn />
+                <FormLink question="Don't you have an account?" href='/sign-up' className='text-primary text-lg my-[48px]' linkClasses='text-link font-normal text-lg'>Sign up</FormLink>
+                <Copyright />
+            </FormWraper>
         </AuthForm>
     )
 }
