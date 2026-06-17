@@ -1,16 +1,19 @@
 
 import Form from "@/components/ui/form/form";
+import { cn } from "@/lib/utils";
 import { FieldValues, SubmitHandler, UseFormProps } from "react-hook-form";
 import { JSX } from "react/jsx-runtime";
 
 export default function AuthForm<T extends FieldValues>({ 
     children, 
     onSubmit, 
-    formOpt 
+    formOpt,
+    className
 }: { 
     children: React.ReactNode,
     formOpt: UseFormProps<T>,
     onSubmit: SubmitHandler<T>,
+    className?: string,
 }): JSX.Element {
     
     const safeOnSubmit = onSubmit as SubmitHandler<FieldValues>;
@@ -19,7 +22,7 @@ export default function AuthForm<T extends FieldValues>({
         <Form 
             onSubmit={safeOnSubmit} 
             formOpt={formOpt}
-            className="w-97 mx-auto flex justify-center items-center flex-col gap-12"
+            className={cn("", className || '')}
             inputFieldClasses='[&>label]:text-primary'
             inputBoxClasses='text-primary/80 border border-primary/80 h-12 rounded-xl p-4 mt-2'
             inputErrorClasses="border-red-500 text-red-500"
