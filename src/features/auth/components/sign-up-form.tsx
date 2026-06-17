@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/form/input';
 import { Checkbox } from '@/components/ui/form/checkbox';
 import { FormLink } from '@/components/ui/form/form-link';
 import SubmitBtn from './ui/submit-btn';
-import SocialSignup from './social-signup';
 export default function SignUpForm(): JSX.Element {
     const onSubmit: SubmitHandler<SignUpType> = () => {}
     const formOpt = {
