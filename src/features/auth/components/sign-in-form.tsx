@@ -8,7 +8,7 @@ import { FormTitle } from '@/components/ui/form/form-tiitle';
 import { FormWraper } from '@/components/ui/form/form-wraper';
 import { Input } from '@/components/ui/form/input';
 import { FormLink } from '@/components/ui/form/form-link';
-import SubmitBtn from './submit-btn';
+import SubmitBtn from './ui/submit-btn';
 import AuthForm from './ui/auth-form';
 import SocialSignIn from './social-signin';
 import Copyright from '@/components/ui/copyright';
@@ -49,7 +49,7 @@ export default function SignInForm(): JSX.Element {
                     Password
                 </Input>
                 <FormLink href='#' className='my-6 text-right' linkClasses='text-link font-normal text-base'>Forget Password?</FormLink>
-                <SubmitBtn />
+                <SubmitBtn>Sign in</SubmitBtn>
             </FormWraper>
             <FormWraper className='text-center'>
                 <SocialSignIn />
