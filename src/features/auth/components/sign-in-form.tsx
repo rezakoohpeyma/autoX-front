@@ -1,5 +1,9 @@
 'use client';
-import Form from '@/components/ui/form/form';
+import SubmitBtn from './ui/submit-btn';
+import AuthForm from './ui/auth-form';
+import Copyright from '@/components/ui/copyright';
+import Divider from './ui/divider';
+import Social from './social';
 import { JSX } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { signInSchema, SignInType } from '../schema';
@@ -8,10 +12,6 @@ import { FormTitle } from '@/components/ui/form/form-tiitle';
 import { FormWraper } from '@/components/ui/form/form-wraper';
 import { Input } from '@/components/ui/form/input';
 import { FormLink } from '@/components/ui/form/form-link';
-import SubmitBtn from './ui/submit-btn';
-import AuthForm from './ui/auth-form';
-import SocialSignIn from './social-signin';
-import Copyright from '@/components/ui/copyright';
 export default function SignInForm(): JSX.Element {
     const onSubmit: SubmitHandler<SignInType> = () => {}
 
@@ -52,7 +52,8 @@ export default function SignInForm(): JSX.Element {
                 <SubmitBtn>Sign in</SubmitBtn>
             </FormWraper>
             <FormWraper className='text-center'>
-                <SocialSignIn />
+                <Divider className='mb-6'>Or</Divider>
+                <Social />
                 <FormLink question="Don't you have an account?" href='/sign-up' className='text-primary text-lg my-[48px]' linkClasses='text-link font-normal text-lg'>Sign up</FormLink>
                 <Copyright />
             </FormWraper>
