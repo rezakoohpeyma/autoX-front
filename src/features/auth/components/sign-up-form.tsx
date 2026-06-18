@@ -10,6 +10,8 @@ import { Input } from '@/components/ui/form/input';
 import { Checkbox } from '@/components/ui/form/checkbox';
 import { FormLink } from '@/components/ui/form/form-link';
 import SubmitBtn from './ui/submit-btn';
+import Social from './social';
+import Divider from './ui/divider';
 export default function SignUpForm(): JSX.Element {
     const onSubmit: SubmitHandler<SignUpType> = () => {}
     const formOpt = {
@@ -65,8 +67,10 @@ export default function SignUpForm(): JSX.Element {
                 </Checkbox>
                 <SubmitBtn>Create Account</SubmitBtn>
             </FormWraper>
-            <FormWraper>
-                <FormLink href='/sign-in' question='Already have an account?' className='text-center text-sm font-normal' linkClasses='text-link hover:border-link'>Sign in</FormLink>
+            <FormWraper className='text-center w-full'>
+                <Divider className='mb-6'>or sign up with</Divider>
+                <Social />
+                <FormLink href='/sign-in' question='Already have an account?' className='text-center text-md font-normal mt-4' linkClasses='text-link hover:border-link'>Sign in</FormLink>
             </FormWraper>
         </AuthForm>
     )
