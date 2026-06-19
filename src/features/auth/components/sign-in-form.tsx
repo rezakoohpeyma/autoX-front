@@ -22,14 +22,14 @@ export default function SignInForm(): JSX.Element {
         <AuthForm<SignInType> 
             onSubmit={onSubmit} 
             formOpt={formOpt}
-            className="w-97 mx-auto flex justify-center items-center flex-col gap-12"
+            className="w-full max-w-97 mx-auto flex justify-center items-center flex-col gap-6 sm:gap-12"
         >    
             <FormWraper>
-                <FormTitle className='text-primary mb-7 font-semibold text-[36px] tracking-wider'>
+                <FormTitle className='text-primary mb-7 font-semibold text-[28px] sm:text-[36px] tracking-wider'>
                     Welcome Back &nbsp;
                     <span>👋</span>
                 </FormTitle>
-                <p className='font-normal text-[20px] text-primary/80'>
+                <p className='font-normal text-[15px] sm:text-[20px] text-primary/80'>
                     Today is a new day. It&#39;s your day. You shape it. 
                     Sign in to start managing your projects.
                 </p>
