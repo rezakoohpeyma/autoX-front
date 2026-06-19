@@ -23,7 +23,7 @@ export default function AuthForm<T extends FieldValues>({
             onSubmit={safeOnSubmit} 
             formOpt={formOpt}
             className={cn("", className || '')}
-            inputFieldClasses='[&>label]:text-primary'
+            inputFieldClasses='[&>label]:text-primary w-full'
             inputBoxClasses='text-primary/80 border border-primary/80 h-12 rounded-xl p-4 mt-2'
             inputErrorClasses="border-red-500 text-red-500"
         >   
