@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) : JSX.Element {
   return (
     <html lang="en" >
-      <body className="lg:h-screen lg:overflow-hidden">
+      <body>
           {children}
       </body>
     </html>
