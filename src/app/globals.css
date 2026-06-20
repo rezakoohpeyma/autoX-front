@@ -4,9 +4,15 @@
   --primary: #162D3A;
   --secondary: #F6F6F6;
   --link: #1E4AE9;
+  --dashboard-bg: #FBFBFB;
+  --sidebar-header: #FAFAFA;
+  --sidebar-border: #D9D9D9;
 }
  
 @theme inline {
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-header: var(--sidebar-header);
+  --color-dashboard-bg: var(--dashboard-bg);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-link: var(--link);
