@@ -13,7 +13,7 @@ export default function NavLink({href,className, ...other } : NavLinkProps): JSX
     return (
         <Link 
             href={href}
-            className={cn(href === path ? "bg-[#F6F6F6]" : "", className || '')}
+            className={cn(href === path ? "bg-[#F6F6F6] text-black" : "", className || '')}
             {...other}
          />
     )
