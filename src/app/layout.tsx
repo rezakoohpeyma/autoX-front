@@ -1,6 +1,11 @@
 import { JSX } from "react/jsx-runtime";
 import "./globals.css";
 import type { Metadata } from "next";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+import Providers from "./providers";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: {
@@ -15,9 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) : JSX.Element {
   return (
-    <html lang="en" >
-      <body className="h-screen overflow-hidden">
-          {children}
+    <html lang="en" className={cn("font-sans", geist.variable)} >
+      <body>
+          <Providers>
+            {children}
+          </Providers>
       </body>
     </html>
   );
