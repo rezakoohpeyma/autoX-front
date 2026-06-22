@@ -3,7 +3,7 @@ import { SidebarCategoryType } from "../types/sidebar-types";
 export const sidebar: SidebarCategoryType[] = Array.from({ length : 10 }, (i: number) => {
     return {
         id: i,
-        name: "Test" + i,
+        name: "Test",
         items: [
             {
                 id: 0,

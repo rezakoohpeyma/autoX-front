@@ -1,8 +1,14 @@
+'use client';
 import { JSX } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useSidebarStore } from '../store/use-sidebar-store';
 export default function SidebarCollapseToggle(): JSX.Element {
+    const onToggleSidebar = useSidebarStore(state => state.toggleSidebar)
     return (
-        <div className='size-7 rounded-lg bg-white border border-sidebar-border flex justify-center items-center text-[10px] text-primary font-medium cursor-pointer absolute -bottom-3.5 -right-3.5'>
+        <div 
+            onClick={onToggleSidebar}
+            className='size-7 rounded-lg bg-white border border-sidebar-border flex justify-center items-center text-[10px] text-primary font-medium cursor-pointer absolute -bottom-3.5 -right-3.5'
+        >
             <FaChevronLeft />
             <FaChevronRight />
         </div>
