@@ -17,7 +17,7 @@ export default function SidebarCategory({ category } : SideBarCategoryProp): JSX
     return (
         <div className={cn('px-6 pt-6', isCollapsed ? 'text-center' : '')} >
             <h3 className='font-medium text-[10px] tracking-wider text-primary/80 uppercase mb-2'>{category.name}</h3>
-            <div className='space-y-2'>
+            <div className='flex justify-center flex-col gap-2'>
                 {category.items.map((item, i) => <SidebarItem onSelectedId={handleSelectedId} selectedId={selectedId} item={item} key={i}/>)}
             </div>
             
