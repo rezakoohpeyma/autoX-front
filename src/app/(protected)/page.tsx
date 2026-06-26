@@ -1,9 +1,5 @@
-import { JSX } from 'react';
-export default function DashboardPage(): JSX.Element {
-  return (
-    <div className=''>
-      Dashboard
-    </div>
-  )
+import { redirect } from 'next/navigation';
+export default function HomePage() {
+  redirect('/dashboard')
 }
 

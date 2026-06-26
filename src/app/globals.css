@@ -7,10 +7,11 @@
 :root {
   --primary: #162D3A;
   --secondary: #F6F6F6;
-  --link: #1E4AE9;
+  --link: #9ba1b7;
   --white-primary: #FBFBFB;
   --white-secondary: #FAFAFA;
-  --sidebar-border: #D9D9D9;
+  --sidebar-border: #d9d9d9;
+  --header-border: #dadada;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -44,6 +45,7 @@
 
 @theme inline {
   --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-border: var(--header-border);
   --color-white-secondary: var(--white-secondary);
   --color-white-primary: var(--white-primary);
   --color-primary: var(--primary);
