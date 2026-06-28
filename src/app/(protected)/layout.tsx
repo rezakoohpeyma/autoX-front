@@ -7,7 +7,7 @@ export default function ProtectedLayout({ children } : { children: React.ReactNo
             <Sidebar />
            <div className='flex-1 flex flex-col gap-4'>
                 <DashboardHeader />
-                <div className='flex-1'>
+                <div className='flex-1 overflow-scroll'>
                     {children}
                 </div> 
            </div>
