@@ -3,6 +3,7 @@
 import {
   ColumnDef,
   flexRender,
+  Table as TanstackTable,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
@@ -17,27 +18,24 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import DataTablePagination from "./data-table-pagination"
-import { IoArrowDownOutline } from "react-icons/io5";
+import { ComponentProps } from "react"
+import { cn } from "@/lib/utils"
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+interface DataTableProps<TData> {
+  table: TanstackTable<TData>
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-
-  })
+export function DataTable<TData>({
+  table,
+  className,
+  children,
+  ...other
+}: DataTableProps<TData> & ComponentProps<'div'>) {
+  
 
   return (
-    <div className="">
+    <div className={cn("flex justify-center flex-col gap-3", className)} {...other}>
+      <div>{children}</div>
       <Table className="overflow-hidden rounded-xs! bg-white border-b">
         <TableHeader className="bg-table-header-bg">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -45,17 +43,12 @@ export function DataTable<TData, TValue>({
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id} className="text-table-header-text text-xs ">
-                    <p className="flex items-center gap-1">
-                        <span>
-                            {header.isPlaceholder
-                                ? null
-                                : flexRender(
-                                    header.column.columnDef.header,
-                                    header.getContext()
-                            )}
-                        </span>
-                        <IoArrowDownOutline />
-                    </p>
+                    {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                    )}
                   </TableHead>
                 )
               })}
@@ -78,7 +71,7 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>
