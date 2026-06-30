@@ -1,12 +1,8 @@
 "use client"
 
 import {
-  ColumnDef,
   flexRender,
   Table as TanstackTable,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
 } from "@tanstack/react-table"
 
 import {
