@@ -31,7 +31,7 @@ export const sidebar: SidebarCategoryType[] = Array.from({ length : 10 }, (i: nu
             {
                 id: 1,
                 name: "SubTest2",
-                link: '/' + String(Math.random() * 12),
+                link: '/dashboard',
                 icon: 'FaApple',
             }
         ]
