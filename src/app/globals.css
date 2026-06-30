@@ -7,7 +7,7 @@
 :root {
   --primary: #162D3A;
   --secondary: #F6F6F6;
-  --link: #9ba1b7;
+  --link: #1E4AE9;
   --white-primary: #FBFBFB;
   --table-header-bg: #E1E1E1;
   --table-header-text: #667085;
@@ -16,6 +16,7 @@
   --white-secondary: #FAFAFA;
   --sidebar-border: #d9d9d9;
   --header-border: #dadada;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -48,6 +49,9 @@
 }
 
 @theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-link: var(--link);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-border: var(--header-border);
   --color-white-secondary: var(--white-secondary);
@@ -56,9 +60,7 @@
   --color-table-header-text: var(--table-header-text);
   --color-search-box-bg: var(--search-box-bg);
   --color-search-box-border: var(--search-box-border);
-  --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
-  --color-link: var(--link);
+
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);

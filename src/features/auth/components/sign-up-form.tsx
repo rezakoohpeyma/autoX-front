@@ -72,7 +72,7 @@ export default function SignUpForm(): JSX.Element {
             <FormWraper className='text-center'>
                 <Divider className='mb-6'>or sign up with</Divider>
                 <Social />
-                <FormLink href='/sign-in' question='Already have an account?' className='text-center text-md font-normal mt-6' linkClasses='text-link hover:border-link'>Sign in</FormLink>
+                <FormLink href='/sign-in' question='Already have an account?' className='text-center text-md text-primary font-normal mt-6' linkClasses='text-link hover:border-link'>Sign in</FormLink>
             </FormWraper>
         </AuthForm>
     )
