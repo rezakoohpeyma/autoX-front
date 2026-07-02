@@ -1,7 +1,6 @@
 import { env } from "@/config/env";
-import { routes } from "@/config/routes";
-import { handleLogout, handleRefreshToken } from "@/features/auth/api/queries";
-import { getRefreshToken, getToken, TOKEN } from "@/features/auth/lib/utils";
+import { handleRefreshToken } from "@/features/auth/api/mutations";
+import { getRefreshToken, getToken, handleLogout } from "@/features/auth/lib/utils";
 import { createFetch, ErrorContext } from "@better-fetch/fetch";
 
 interface ErrorContextWithRetry extends ErrorContext {
@@ -49,6 +48,7 @@ export const cFetch = createFetch({
 
     if(error.status === 401 || error.status === 400) 
       handleLogout()
+
     console.error(error);
   }
 });
