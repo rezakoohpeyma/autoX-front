@@ -1,4 +1,5 @@
 'use client';
+import Loading from '@/components/ui/loading';
 import { routes } from '@/config/routes';
 import UseGetUser from '@/features/auth/hooks/use-get-user';
 import { useRouter } from 'next/navigation';
@@ -12,8 +13,8 @@ export default function ProtectedProviders({ children, ...other } : ProtectedPro
     const router = useRouter()
     const { user, isUserLoading } = UseGetUser();
 
-    if(isUserLoading) return <p>Loading...</p>
-    
+    if(isUserLoading) return  <Loading hasText={true} className='mt-30' />
+        
     if(!isUserLoading && !user)
         router.push(routes.signIn)
     
