@@ -1,6 +1,9 @@
 'use client';
-import { JSX } from 'react';
 import AuthForm from './ui/auth-form';
+import SubmitBtn from './ui/submit-btn';
+import Social from './social';
+import Divider from './ui/divider';
+import { JSX } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { signUpSchema, SignUpType } from '../schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,9 +12,6 @@ import { FormTitle } from '@/components/ui/form/form-tiitle';
 import { Input } from '@/components/ui/form/input';
 import { Checkbox } from '@/components/ui/form/checkbox';
 import { FormLink } from '@/components/ui/form/form-link';
-import SubmitBtn from './ui/submit-btn';
-import Social from './social';
-import Divider from './ui/divider';
 export default function SignUpForm(): JSX.Element {
     const onSubmit: SubmitHandler<SignUpType> = () => {}
     const formOpt = {
@@ -44,10 +44,16 @@ export default function SignUpForm(): JSX.Element {
                 </FormWraper>
                 <FormWraper>
                     <Input 
-                        nameId='username'
-                        placeholder='MiladAfzali123'
+                        nameId='phoneNumber'
+                        placeholder='0913000123'
                     >
-                    Username
+                        Phone Number
+                    </Input>
+                    <Input 
+                        nameId='email'
+                        placeholder='test@gamil.com'
+                    >
+                        Email
                     </Input>
                     <Input 
                         nameId='password'
@@ -64,7 +70,13 @@ export default function SignUpForm(): JSX.Element {
                         Confirm Password
                     </Input>
                     <Checkbox nameId='rules' checkboxContainerClasses='my-6'>
-                        <FormLink href='#' question='I agree to the' linkClasses='text-primary hover:border-primary'>Terms and Conditions</FormLink>
+                        <FormLink 
+                            href='#' 
+                            question='I agree to the' 
+                            linkClasses='text-primary hover:border-primary'
+                        >
+                            Terms and Conditions
+                        </FormLink>
                     </Checkbox>
                 </FormWraper>
                 <SubmitBtn>Create Account</SubmitBtn>
@@ -72,7 +84,14 @@ export default function SignUpForm(): JSX.Element {
             <FormWraper className='text-center'>
                 <Divider className='mb-6'>or sign up with</Divider>
                 <Social />
-                <FormLink href='/sign-in' question='Already have an account?' className='text-center text-md font-normal mt-6' linkClasses='text-link hover:border-link'>Sign in</FormLink>
+                <FormLink 
+                    href='/sign-in' 
+                    question='Already have an account?' 
+                    className='text-center text-md font-normal mt-6' 
+                    linkClasses='text-link hover:border-link'
+                >
+                    Sign in
+                </FormLink>
             </FormWraper>
         </AuthForm>
     )
