@@ -1,7 +1,8 @@
 
-import { JSX, ReactNode } from 'react';
+import { JSX, ReactNode, useMemo } from 'react';
 import { FaGear, FaIdCard, FaRightFromBracket, FaUser } from 'react-icons/fa6';
 import HeaderControlItem from './header-control-item';
+import useLogout from '@/features/auth/hooks/use-logout';
 
 export type MenuItem = {
   label?: string
@@ -17,7 +18,10 @@ export type Menus = {
   items: MenuItem[]
 }
 
-const menus: Menus[] = [
+
+export default function HeaderControls(): JSX.Element {
+    const { logout } = useLogout()
+    const menus: Menus[] = useMemo(() => [
     {
         trigger: <FaUser />,
         label: "User",
@@ -32,13 +36,12 @@ const menus: Menus[] = [
             {
                 label: "Log out",
                 icon: <FaRightFromBracket />,
-                href:'#',
-                
+                onClick: logout
             },
         ]
     }
-]
-export default function HeaderControls(): JSX.Element {
+], [logout])
+
     return (
         <div className='flex justify-center items-center gap-3 text-[#A6ADBF] text-base'>
             {menus.map((menu, i) => 

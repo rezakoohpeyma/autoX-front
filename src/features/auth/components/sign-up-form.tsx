@@ -5,17 +5,21 @@ import Social from './social';
 import Divider from './ui/divider';
 import { JSX } from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import { signUpSchema, SignUpType } from '../schema';
+import { signUpFormSchema, SignUpFormType } from '../schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormWraper } from '@/components/ui/form/form-wraper';
 import { FormTitle } from '@/components/ui/form/form-tiitle';
 import { Input } from '@/components/ui/form/input';
 import { Checkbox } from '@/components/ui/form/checkbox';
 import { FormLink } from '@/components/ui/form/form-link';
+import { useSignUp } from '../hooks/use-sign-up';
 export default function SignUpForm(): JSX.Element {
-    const onSubmit: SubmitHandler<SignUpType> = () => {}
+    const { signUp, isSignUpLoading } = useSignUp()
+    const onSubmit: SubmitHandler<SignUpFormType> = (data) => {
+        signUp(data);
+    }
     const formOpt = {
-        resolver: zodResolver(signUpSchema),
+        resolver: zodResolver(signUpFormSchema),
     }
     return (
         <AuthForm 
@@ -32,12 +36,14 @@ export default function SignUpForm(): JSX.Element {
                     <Input 
                         nameId='firstName'
                         placeholder='Milad'
+                        defaultValue="Milad"
                     >
                         First Name
                     </Input>
                     <Input 
                         nameId='lastName'
                         placeholder='Afzali'
+                        defaultValue="Afzali"
                     >
                         Last Name
                     </Input>
@@ -46,12 +52,14 @@ export default function SignUpForm(): JSX.Element {
                     <Input 
                         nameId='phoneNumber'
                         placeholder='0913000123'
+                        defaultValue="09023351759"
                     >
                         Phone Number
                     </Input>
                     <Input 
                         nameId='email'
-                        placeholder='test@gamil.com'
+                        placeholder='test2@gamil.com'
+                        defaultValue="test2@gmail.com"
                     >
                         Email
                     </Input>
@@ -59,6 +67,7 @@ export default function SignUpForm(): JSX.Element {
                         nameId='password'
                         type='password'
                         placeholder='At least 8 characters'
+                        defaultValue="aBcD12345678"
                     >
                         Password
                     </Input>
@@ -66,6 +75,7 @@ export default function SignUpForm(): JSX.Element {
                         type='password'
                         nameId='confirmPassword'
                         placeholder='At least 8 characters'
+                        defaultValue="aBcD12345678"
                     >
                         Confirm Password
                     </Input>
@@ -79,7 +89,7 @@ export default function SignUpForm(): JSX.Element {
                         </FormLink>
                     </Checkbox>
                 </FormWraper>
-                <SubmitBtn>Create Account</SubmitBtn>
+                <SubmitBtn isLoading={isSignUpLoading}>Create Account</SubmitBtn>
             </FormWraper>
             <FormWraper className='text-center'>
                 <Divider className='mb-6'>or sign up with</Divider>
