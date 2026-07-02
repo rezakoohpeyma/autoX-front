@@ -6,11 +6,12 @@ type LoadingProps = {
 } & ComponentProps<'div'>;
 
 export default function Loading({ hasText = false, className, ...other } : LoadingProps): JSX.Element {
-    return (
+    if(hasText) return (
         <div className={cn("flex justify-center items-center flex-col gap-2 animate-pulse",className)} {...other}>
             <div className='size-10 border-4 border-b-transparent border-primary rounded-full animate-spin'/>
-            {hasText && <p className='text-primary'>Loading...</p>}
+             <p className='text-primary'>Loading...</p>
         </div>
     )
+    else return <div className={cn('size-10 border-4 border-b-transparent border-primary rounded-full animate-spin', className)} {...other}/>
 }
 
