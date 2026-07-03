@@ -7,7 +7,7 @@ export const userSchema = z.object({
     isActive: z.boolean(),
     createdAt: z.string(),
     updatedAt: z.string(),
-    deletedAt: z.string().nullish(),
+    deletedAt: z.string().nullable(),
 
 })
 export const signInFormSchema = z.object({
@@ -45,12 +45,6 @@ export const authSchema = z.object({
     tokenExpires: z.number(),
     user: userSchema
 })
-/*
-
-{
-    
-}
-*/
 
 export type UserType = z.infer<typeof userSchema>;
 export type RefreshTokenType = z.infer<typeof refreshTokenSchema>;
