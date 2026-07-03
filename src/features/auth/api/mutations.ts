@@ -4,7 +4,7 @@ import { getRefreshToken, saveTokens } from "../lib/utils";
 
 
 export async function signUp(formData: SignUpFormType): Promise<AuthType>{
-    const data: AuthType = await cFetch('/api/auth/register', {
+    const data = await cFetch('/api/auth/register', {
         method: "POST",
         body: JSON.stringify({
             firstName: formData.firstName,
@@ -15,18 +15,18 @@ export async function signUp(formData: SignUpFormType): Promise<AuthType>{
             isActive: true,
         })
     })
-    return data;
+    return data as AuthType;
 } 
 
 export async function signIn(formData: SignInFormType){
-    const data: AuthType = await cFetch('/api/auth/login', {
+    const data = await cFetch('/api/auth/login', {
         method: "POST",
         body: JSON.stringify({
             phoneNumber: formData.phoneNumber,
             password: formData.password,
         })
     })
-    return data
+    return data as AuthType;
 }
 
 export async function handleRefreshToken() {
@@ -40,7 +40,7 @@ export async function handleRefreshToken() {
 
         await saveTokens(token, refreshToken);
 
-    return true
+        return true
     }catch(error){
         return false
     }
