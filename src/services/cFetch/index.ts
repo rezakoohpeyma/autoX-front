@@ -1,11 +1,8 @@
 import { env } from "@/config/env";
-import { handleRefreshToken } from "@/features/auth/api/mutations";
-import { getRefreshToken, getToken, handleLogout } from "@/features/auth/lib/utils";
-import { createFetch, ErrorContext } from "@better-fetch/fetch";
-
-interface ErrorContextWithRetry extends ErrorContext {
-    retry: () => Promise<void>; 
-}
+import { getRefreshToken, handleLogout } from "@/features/auth/lib/utils";
+import { BetterFetchError, createFetch } from "@better-fetch/fetch";
+import { rawFetch } from "./raw-fetch";
+import { refreshTokenOnce } from "./refresh-manager";
 
 export const refreshFetch = createFetch({
   baseURL: env.API_BASE_URL,
@@ -19,36 +16,30 @@ export const refreshFetch = createFetch({
   },
 });
 
-export const cFetch = createFetch({
-  baseURL: env.API_BASE_URL,
-  throw: true,
-  headers: {
-    accept: 'application/json'
-  },
-  async onRequest(req) {
-    const token =  await getToken();
-    if(token) req.headers.set("Authorization", `Bearer ${token}`);
-  },
-  async onError(context){
-
-
-      const { error, retry } = context as ErrorContextWithRetry;
-
-      if (error.status === 401) {
-      try {
-        const success = await handleRefreshToken();
-        if (success) {
-          return retry(); 
-        }
-      } catch (refreshError) {
-        console.error("Refresh process failed", refreshError);
-      }
+export async function cFetch(
+  input: Parameters<typeof rawFetch>[0],
+  init?: Parameters<typeof rawFetch>[1]
+) {
+  try {
+    return await rawFetch(input, init);
+  } catch (error) {
+    if (!(error instanceof BetterFetchError)) {
+        throw error;
     }
-    
 
-    if(error.status === 401 || error.status === 400) 
-      handleLogout()
+    if (error.status !== 401) {
+        throw error;
+    }
 
-    console.error(error);
+
+    const success = await refreshTokenOnce();
+
+    if (!success) {
+      handleLogout();
+      throw error;
+    }
+
+    // دوباره همان Request
+    return rawFetch(input, init);
   }
-});
+}
