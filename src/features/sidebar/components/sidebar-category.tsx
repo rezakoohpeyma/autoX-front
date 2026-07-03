@@ -1,7 +1,7 @@
 'use client';
+import SidebarItem from './sidebar-item';
 import { JSX, useState } from 'react';
 import { SidebarCategoryType } from '../types/sidebar-types';
-import SidebarItem from './sidebar-item';
 import { useSidebarStore } from '../store/use-sidebar-store';
 import { cn } from '@/lib/utils';
 
@@ -20,7 +20,6 @@ export default function SidebarCategory({ category } : SideBarCategoryProp): JSX
             <div className='flex justify-center flex-col gap-2'>
                 {category.items.map((item, i) => <SidebarItem onSelectedId={handleSelectedId} selectedId={selectedId} item={item} key={i}/>)}
             </div>
-            
         </div>
     )
 }

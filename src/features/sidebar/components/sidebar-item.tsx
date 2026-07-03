@@ -100,7 +100,7 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
                   ))}
                 </DropdownMenuGroup>
               </DropdownMenuContent>
-          : isSelected && SidebarDropDownContent
+          : isSelected && hasChild && SidebarDropDownContent
         }
     </DropdownMenu>
   );

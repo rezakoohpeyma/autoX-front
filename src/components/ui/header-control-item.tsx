@@ -40,7 +40,10 @@ export default function HeaderControlItem({
                     <span>{item.label}</span>
                   </Link>
                 ) : (
-                  item.label
+                  <p className="flex justify-center items-center gap-1 text-black/60">
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </p>
                 )}
               </DropdownMenuItem>
             )
