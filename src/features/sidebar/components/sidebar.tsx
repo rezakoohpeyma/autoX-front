@@ -17,7 +17,6 @@ export default function Sidebar(): JSX.Element {
                 animate={{
                     width: isCollapsed ? 'auto' : sidebarWidth
                 }}
-                // transition={{ stiffness: 300 , duration: 300 }}
             >
                 <SidebarHeader />
                 <div className='overflow-y-scroll w-full flex-1'>
