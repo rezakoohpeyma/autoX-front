@@ -1,21 +1,25 @@
 'use client';
-import { JSX } from 'react';
 import AuthForm from './ui/auth-form';
+import SubmitBtn from './ui/submit-btn';
+import Social from './social';
+import Divider from './ui/divider';
+import { JSX } from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import { signUpSchema, SignUpType } from '../schema';
+import { signUpFormSchema, SignUpFormType } from '../schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormWraper } from '@/components/ui/form/form-wraper';
 import { FormTitle } from '@/components/ui/form/form-tiitle';
 import { Input } from '@/components/ui/form/input';
 import { Checkbox } from '@/components/ui/form/checkbox';
 import { FormLink } from '@/components/ui/form/form-link';
-import SubmitBtn from './ui/submit-btn';
-import Social from './social';
-import Divider from './ui/divider';
+import { useSignUp } from '../hooks/use-sign-up';
 export default function SignUpForm(): JSX.Element {
-    const onSubmit: SubmitHandler<SignUpType> = () => {}
+    const { signUp, isSignUpLoading } = useSignUp()
+    const onSubmit: SubmitHandler<SignUpFormType> = (data) => {
+        signUp(data);
+    }
     const formOpt = {
-        resolver: zodResolver(signUpSchema),
+        resolver: zodResolver(signUpFormSchema),
     }
     return (
         <AuthForm 
@@ -32,27 +36,38 @@ export default function SignUpForm(): JSX.Element {
                     <Input 
                         nameId='firstName'
                         placeholder='Milad'
+                        defaultValue="Milad"
                     >
                         First Name
                     </Input>
                     <Input 
                         nameId='lastName'
                         placeholder='Afzali'
+                        defaultValue="Afzali"
                     >
                         Last Name
                     </Input>
                 </FormWraper>
                 <FormWraper>
                     <Input 
-                        nameId='username'
-                        placeholder='MiladAfzali123'
+                        nameId='phoneNumber'
+                        placeholder='0913000123'
+                        defaultValue="09023351759"
                     >
-                    Username
+                        Phone Number
+                    </Input>
+                    <Input 
+                        nameId='email'
+                        placeholder='test2@gamil.com'
+                        defaultValue="test2@gmail.com"
+                    >
+                        Email
                     </Input>
                     <Input 
                         nameId='password'
                         type='password'
                         placeholder='At least 8 characters'
+                        defaultValue="aBcD12345678"
                     >
                         Password
                     </Input>
@@ -60,19 +75,33 @@ export default function SignUpForm(): JSX.Element {
                         type='password'
                         nameId='confirmPassword'
                         placeholder='At least 8 characters'
+                        defaultValue="aBcD12345678"
                     >
                         Confirm Password
                     </Input>
                     <Checkbox nameId='rules' checkboxContainerClasses='my-6'>
-                        <FormLink href='#' question='I agree to the' linkClasses='text-primary hover:border-primary'>Terms and Conditions</FormLink>
+                        <FormLink 
+                            href='#' 
+                            question='I agree to the' 
+                            linkClasses='text-primary hover:border-primary'
+                        >
+                            Terms and Conditions
+                        </FormLink>
                     </Checkbox>
                 </FormWraper>
-                <SubmitBtn>Create Account</SubmitBtn>
+                <SubmitBtn isLoading={isSignUpLoading}>Create Account</SubmitBtn>
             </FormWraper>
             <FormWraper className='text-center'>
                 <Divider className='mb-6'>or sign up with</Divider>
                 <Social />
-                <FormLink href='/sign-in' question='Already have an account?' className='text-center text-md text-primary font-normal mt-6' linkClasses='text-link hover:border-link'>Sign in</FormLink>
+                <FormLink 
+                    href='/sign-in' 
+                    question='Already have an account?' 
+                    className='text-center text-md font-normal mt-6' 
+                    linkClasses='text-link hover:border-link'
+                >
+                    Sign in
+                </FormLink>
             </FormWraper>
         </AuthForm>
     )
