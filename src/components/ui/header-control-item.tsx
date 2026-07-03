@@ -35,12 +35,12 @@ export default function HeaderControlItem({
             return (
               <DropdownMenuItem key={index} onClick={item.onClick}>
                 {item.href ? (
-                  <Link href={item.href} className="flex justify-center items-center gap-1 text-black/60">
+                  <Link href={item.href} className="flex justify-center items-center gap-1 text-black/60 cursor-pointer">
                     {item.icon}
                     <span>{item.label}</span>
                   </Link>
                 ) : (
-                  <p className="flex justify-center items-center gap-1 text-black/60">
+                  <p className="flex justify-center items-center gap-1 text-black/60 cursor-pointer">
                     {item.icon}
                     <span>{item.label}</span>
                   </p>
