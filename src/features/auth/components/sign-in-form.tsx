@@ -43,6 +43,7 @@ export default function SignInForm(): JSX.Element {
                     nameId='phoneNumber'
                     placeholder='09130001234'
                     defaultValue="09023351759"
+                    disabled={isSignInLoading}
                 >
                     Phone Number
                 </Input>
@@ -51,6 +52,7 @@ export default function SignInForm(): JSX.Element {
                     nameId='password'
                     placeholder='At least 8 characters'
                     defaultValue="aA@dasd512312"
+                    disabled={isSignInLoading}
                 >
                     Password
                 </Input>
