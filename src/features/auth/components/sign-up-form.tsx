@@ -37,6 +37,7 @@ export default function SignUpForm(): JSX.Element {
                         nameId='firstName'
                         placeholder='Milad'
                         defaultValue="Milad"
+                        disabled={isSignUpLoading}
                     >
                         First Name
                     </Input>
@@ -44,6 +45,7 @@ export default function SignUpForm(): JSX.Element {
                         nameId='lastName'
                         placeholder='Afzali'
                         defaultValue="Afzali"
+                        disabled={isSignUpLoading}
                     >
                         Last Name
                     </Input>
@@ -53,6 +55,7 @@ export default function SignUpForm(): JSX.Element {
                         nameId='phoneNumber'
                         placeholder='0913000123'
                         defaultValue="09023351759"
+                        disabled={isSignUpLoading}
                     >
                         Phone Number
                     </Input>
@@ -60,6 +63,7 @@ export default function SignUpForm(): JSX.Element {
                         nameId='email'
                         placeholder='test2@gamil.com'
                         defaultValue="test2@gmail.com"
+                        disabled={isSignUpLoading}
                     >
                         Email
                     </Input>
@@ -68,6 +72,7 @@ export default function SignUpForm(): JSX.Element {
                         type='password'
                         placeholder='At least 8 characters'
                         defaultValue="aBcD12345678"
+                        disabled={isSignUpLoading}
                     >
                         Password
                     </Input>
@@ -76,10 +81,11 @@ export default function SignUpForm(): JSX.Element {
                         nameId='confirmPassword'
                         placeholder='At least 8 characters'
                         defaultValue="aBcD12345678"
+                        disabled={isSignUpLoading}
                     >
                         Confirm Password
                     </Input>
-                    <Checkbox nameId='rules' checkboxContainerClasses='my-6'>
+                    <Checkbox nameId='terms' checkboxContainerClasses='my-6'>
                         <FormLink 
                             href='#' 
                             question='I agree to the' 

@@ -26,7 +26,7 @@ export const signUpFormSchema = z.object({
     email: z.email(),
     password: z.string().min(8, "Password must be more than 8 characters"),
     confirmPassword: z.string().min(8, "Password must be more than 8 characters"),
-    rules: z.boolean(),
+    terms: z.literal(true, "Test Terms"),
 }).refine(data => data.password === data.confirmPassword, {
     message: "Passwords don't match",
     path: ['confirmPassword']
