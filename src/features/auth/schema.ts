@@ -11,7 +11,7 @@ const passwordSchema = z
 
 const phoneNumberSchema = z
     .string()
-    .min(1, 'Mobile number is required.')
+    .min(1, 'Mobile number is required')
     .regex(/^09\d{9}$/, "Mobile number is not valid (must start with 09 and be 11 digits)");
 ;
 
@@ -37,7 +37,7 @@ export const signUpFormSchema = z.object({
     email: z.email(),
     password: passwordSchema,
     confirmPassword: passwordSchema,
-    terms: z.literal(true, "Test Terms"),
+    terms: z.literal(true, "Terms & Conditions is required"),
 }).refine(data => data.password === data.confirmPassword, {
     message: "Passwords don't match",
     path: ['confirmPassword']
