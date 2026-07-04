@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 export function useSignUp(){    
     const router = useRouter()
     const { mutate, isPending } = useMutation({
-        mutationKey: ['sign-up'],
+        mutationKey: ['user'],
         mutationFn: (data: SignUpFormType) =>  signUpApi(data),
         onSuccess: (user) => {
             toast.success("Account created! We're glad to have you")
