@@ -1,5 +1,20 @@
 import { z } from 'zod'
 
+const passwordSchema = z
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
+    .regex(/[0-9]/, 'Password must contain at least one number')
+    .regex(/[^A-Za-z0-9]/, 'Password must contain at least one special character')
+    .refine(val => !val.includes(' '), 'Password must not contain spaces')
+
+const phoneNumberSchema = z
+    .string()
+    .min(1, 'Mobile number is required.')
+    .regex(/^09\d{9}$/, "Mobile number is not valid (must start with 09 and be 11 digits)");
+;
+
 export const userSchema = z.object({
     id: z.number(),
     firstName: z.string(),
@@ -11,21 +26,17 @@ export const userSchema = z.object({
 
 })
 export const signInFormSchema = z.object({
-    phoneNumber: z.string()
-    .length(11, 'Phone Number must be 11 characters')
-    .regex(/^\d+$/, { message: "Phone number must only contain numbers" }),
-    password: z.string().min(8, "Password must be more than 8 characters")
+    phoneNumber: phoneNumberSchema,
+    password: passwordSchema,
 })
 
 export const signUpFormSchema = z.object({
     firstName: z.string().min(2, 'First Name must be more than 2 characters'),
     lastName: z.string().min(2, 'Last Name must be more than 2 characters'),
-    phoneNumber: z.string()
-    .length(11, 'Phone Number must be 11 characters')
-    .regex(/^\d+$/, { message: "Phone number must only contain numbers" }),
+    phoneNumber: phoneNumberSchema,
     email: z.email(),
-    password: z.string().min(8, "Password must be more than 8 characters"),
-    confirmPassword: z.string().min(8, "Password must be more than 8 characters"),
+    password: passwordSchema,
+    confirmPassword: passwordSchema,
     terms: z.literal(true, "Test Terms"),
 }).refine(data => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -33,10 +44,10 @@ export const signUpFormSchema = z.object({
 })
 
 export const refreshTokenSchema = z.object({
-    "token": z.string(),
-    "refreshToken": z.string(),
-    "tokenExpires": z.number(),
-    "user": userSchema
+    token: z.string(),
+    refreshToken: z.string(),
+    tokenExpires: z.number(),
+    user: userSchema
 })
 
 export const authSchema = z.object({
