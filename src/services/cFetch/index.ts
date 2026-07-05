@@ -39,7 +39,7 @@ export async function cFetch(
       throw error;
     }
 
-    // دوباره همان Request
+    // retry fetch
     return rawFetch(input, init);
   }
 }

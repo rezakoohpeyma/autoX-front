@@ -10,15 +10,17 @@ export default function useSignIn() {
     const { mutate, isPending } = useMutation({
         mutationKey: ['user'],
         mutationFn: signInApi,
-        onSuccess(data){
-            toast.success(`Welcome back, ${data.user.firstName}!`, {
+        onSuccess(res){
+            console.log(res)
+            toast.success(`Welcome back, ${res.data.user.firstName}!`, {
                 className: "capitalize"
             })
-            saveTokens(data.token, data.refreshToken)
+            saveTokens(res.data.token,  res.data.refreshToken)
             router.push(routes.dashboard)
         },
         onError(error){
             toast.error(error.message)
+            console.log(error.message)
         }
     })    
 
