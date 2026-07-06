@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { signIn as signInApi } from "../api/mutations";
-import { saveTokens } from "../lib/utils";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
 import { toast } from "react-toastify";
+import { setTokens } from "../lib/token";
 
 export default function useSignIn() {
     const router = useRouter();
@@ -15,7 +15,7 @@ export default function useSignIn() {
             toast.success(`Welcome back, ${res.data.user.firstName}!`, {
                 className: "capitalize"
             })
-            saveTokens(res.data.token,  res.data.refreshToken)
+            setTokens(res.data.token,  res.data.refreshToken)
             router.push(routes.dashboard)
         },
         onError(error){

@@ -1,7 +1,7 @@
 'use client';
 import { useMutation } from "@tanstack/react-query";
 import { logout as logoutApi } from "../api/mutations";
-import { handleLogout } from "../lib/utils";
+import { handleLogout } from "../lib/logout";
 import { toast } from "react-toastify";
 
 export default function useLogout() {

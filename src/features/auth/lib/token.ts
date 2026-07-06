@@ -1,5 +1,3 @@
-import { routes } from "@/config/routes";
-
 export const TOKEN = "token";
 export const REFRESH_TOKEN = "refresh_token";
 export async function getDataFromCookie(key: string) {
@@ -21,7 +19,8 @@ export async function setDataOnCookie(name: string, value: string) {
   if (typeof window === "undefined") {
     const { cookies } = await import("next/headers");
     const cookiesStore = await cookies();
-     cookiesStore.set(name, value);
+    cookiesStore.set(name, value);
+    return;
   }
 
   // Client Component
@@ -38,23 +37,8 @@ export async function getRefreshToken() {
 }
 
 
-export async function saveTokens(accessToken: string, newRefreshToken?: string) {
+export async function setTokens(accessToken: string, newRefreshToken?: string) {
   await setDataOnCookie(TOKEN, accessToken)
   if(newRefreshToken) await setDataOnCookie(REFRESH_TOKEN, newRefreshToken)
 }
 
-export async function handleLogout() {
-    if (typeof window === 'undefined') {
-        const { cookies } = await import('next/headers');
-        const { redirect } = await import('next/navigation');
-        const cookiesStore = await cookies();
-        cookiesStore.delete(TOKEN);
-        cookiesStore.delete(REFRESH_TOKEN);
-        redirect(routes.signIn);
-    } else {
-        const { default: cookies } = await import('js-cookie');
-        cookies.remove(TOKEN);
-        cookies.remove(REFRESH_TOKEN);
-        window.location.assign(routes.signIn);
-    }
-}
