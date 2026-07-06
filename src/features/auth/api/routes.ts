@@ -1,9 +1,15 @@
-import z from "zod";
-import { baseResponseSchema, ApiGetMeOutput, signInFormSchema, userSchema, ApiSignUpInput, tokenSchema } from "../schema";
+import {
+    baseResponseSchema,
+    apiGetMeOutputSchema,
+    signInFormSchema,
+    userSchema, 
+    tokenSchema, 
+    apiSignUpInputSchema 
+} from "../schema";
 
 export const authRoutes = {
     '/api/auth/register': {
-        input: ApiSignUpInput,
+        input: apiSignUpInputSchema,
         output: baseResponseSchema.extend({
             data: tokenSchema.extend({
                 user: userSchema,
@@ -28,7 +34,7 @@ export const authRoutes = {
     },
     "/api/auth/me":{
         output: baseResponseSchema.extend({
-            data: ApiGetMeOutput
+            data: apiGetMeOutputSchema
         })
     }
 
