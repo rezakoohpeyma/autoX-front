@@ -1,7 +1,10 @@
-import { cFetch } from "@/services/cFetch";
-import { AuthType } from "../schema";
+import { retryOnUnauthorized } from "@/lib/api/retry-on-unauthorized";
+import { $fetch } from "@/lib/api/fetch";
 
 export async function getMe(){
-    const data = await cFetch('/api/auth/me');
-    return data as AuthType;
+    return retryOnUnauthorized(() => 
+        $fetch('/api/auth/me', {
+            method: "GET",
+        })
+    )
 }
