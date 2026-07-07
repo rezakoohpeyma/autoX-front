@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { TOKEN } from "@/features/auth/lib/utils";
+import { TOKEN } from "@/features/auth/lib/token";
 import { routes } from "@/config/routes";
 
 export default function proxy(request: NextRequest) {

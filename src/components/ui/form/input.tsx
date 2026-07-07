@@ -9,6 +9,7 @@ import {
   HiOutlineEyeSlash,
 } from "react-icons/hi2";
 import { cn } from "@/lib/utils";
+import ErrorMessage from "./error-message";
 
 export function Input<T extends FieldValues>({
   type = "text",
@@ -90,11 +91,10 @@ export function Input<T extends FieldValues>({
           </IconContext.Provider>
         </div>
       </div>
-      {showError && typeof error === "string" && (
-        <p className="mt-2 bg-red-500 text-red-100 px-4 py-2 rounded-sm text-sm font-semibold">
+      {showError && typeof error === "string" && 
+        <ErrorMessage>
           {error}
-        </p>
-      )}
+        </ErrorMessage>}
     </div>
   );
 }
