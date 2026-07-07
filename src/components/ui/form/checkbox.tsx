@@ -4,6 +4,7 @@ import { FieldValues, Path } from "react-hook-form";
 import { HiOutlineExclamationTriangle } from "react-icons/hi2"; // آیکون خطا
 import { cn } from "@/lib/utils"; // تابع ترکیب کلاس‌ها
 import { useFormContext } from "./use-form-context";
+import ErrorMessage from "./error-message";
 
 // تعریف پراپ‌های کامپوننت Checkbox
 export type CheckboxProps<T extends FieldValues> = ComponentProps<"input"> & {
@@ -80,10 +81,9 @@ export function Checkbox<T extends FieldValues>({
       </div>
 
       {error && typeof error === "string" && (
-        <div className="mt-2 flex items-center gap-1 text-sm text-red-500 font-semibold">
-          <HiOutlineExclamationTriangle className="text-[1.2em]" />
-          <p>{error}</p>
-        </div>
+        <ErrorMessage>
+          {error}
+        </ErrorMessage>
       )}
     </div>
   );

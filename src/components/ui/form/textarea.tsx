@@ -1,10 +1,11 @@
+import ErrorMessage from "./error-message";
 import { ComponentProps, useId, useState } from "react";
 import { FieldValues, Path } from "react-hook-form";
 import { HiOutlineExclamationTriangle } from "react-icons/hi2";
 import { useFormContext } from "./use-form-context";
 import { cn } from "@/lib/utils";
 
-function Textarea<T extends FieldValues>({
+export function Textarea<T extends FieldValues>({
   nameId,
   placeholder,
   children,
@@ -65,9 +66,9 @@ function Textarea<T extends FieldValues>({
         )}
       </div>
       {showError && typeof error === "string" && (
-        <p className="mt-2 bg-red-500 text-red-100 px-4 py-2 rounded-sm text-sm font-semibold">
+        <ErrorMessage>
           {error}
-        </p>
+        </ErrorMessage>
       )}
     </div>
   );
