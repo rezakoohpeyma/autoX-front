@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+// Reusable Schemas
+
 export const passwordSchema = z
     .string()
     .min(8, "Password must be at least 8 characters long")
@@ -15,16 +17,7 @@ export const phoneNumberSchema = z
     // .regex(/^09\d{9}$/, "Mobile number is not valid (must start with 09 and be 11 digits)");
 ;
 
-export const userSchema = z.object({
-    id: z.number(),
-    firstName: z.string(),
-    lastName: z.string(),
-    isActive: z.boolean(),
-    createdAt: z.string(),
-    updatedAt: z.string(),
-    deletedAt: z.string().nullable(),
-
-})
+export const deleteAtSchema = z.string().nullable();
 
 export const baseResponseSchema = z.object({
     success: z.boolean(),
@@ -33,6 +26,26 @@ export const baseResponseSchema = z.object({
     timestamp: z.string(),
     path: z.string()
 })
+
+export const tokenSchema = z.object({
+    token: z.string(),
+    refreshToken: z.string(),
+    tokenExpires: z.number(),
+})
+
+export const userSchema = z.object({
+    id: z.number(),
+    firstName: z.string(),
+    lastName: z.string(),
+    isActive: z.boolean(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+    deletedAt: deleteAtSchema,
+
+})
+
+
+// Form Schemas
 
 export const signInFormSchema = z.object({
     phoneNumber: phoneNumberSchema,
@@ -52,7 +65,9 @@ export const signUpFormSchema = z.object({
     path: ['confirmPassword']
 })
 
-export const ApiSignUpInput = z.object({
+// Api Schemas (input, output)
+
+export const apiSignUpInputSchema = z.object({
     firstName: z.string().min(2, 'First Name must be more than 2 characters'),
     lastName: z.string().min(2, 'Last Name must be more than 2 characters'),
     phoneNumber: phoneNumberSchema,
@@ -60,16 +75,29 @@ export const ApiSignUpInput = z.object({
     password: passwordSchema,
 })
 
-export const authSchema = z.object({
-    token: z.string(),
-    refreshToken: z.string(),
-    tokenExpires: z.number(),
-    user: userSchema
+export const apiGetMeOutputSchema = z.object({
+    id: z.number(),
+    email: z.email(),
+    firstName: z.string(),
+    lastName: z.string(),
+    phoneNumber: phoneNumberSchema,
+    isActive: z.boolean(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+    deletedAt: deleteAtSchema
 })
 
+// All of types
 
+
+// Reusable Types
 export type UserType = z.infer<typeof userSchema>;
-export type AuthType = z.infer<typeof authSchema>;
 
+
+// Form Types
 export type SignInFormType = z.infer<typeof signInFormSchema>;
 export type SignUpFormType = z.infer<typeof signUpFormSchema>;
+
+// Api Types
+export type ApiSignUpInputType = z.infer<typeof apiSignUpInputSchema>;
+export type ApiGetMeOutputType = z.infer<typeof apiGetMeOutputSchema>;
