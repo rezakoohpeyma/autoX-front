@@ -65,6 +65,11 @@ export const signUpFormSchema = z.object({
     path: ['confirmPassword']
 })
 
+export const resetPasswordFormSchema = z.object({
+    phoneNumber: phoneNumberSchema,
+    password: passwordSchema
+})
+
 // Api Schemas (input, output)
 
 export const apiSignUpInputSchema = z.object({
@@ -97,6 +102,7 @@ export type UserType = z.infer<typeof userSchema>;
 // Form Types
 export type SignInFormType = z.infer<typeof signInFormSchema>;
 export type SignUpFormType = z.infer<typeof signUpFormSchema>;
+export type ResetPasswordType = z.infer<typeof resetPasswordFormSchema>
 
 // Api Types
 export type ApiSignUpInputType = z.infer<typeof apiSignUpInputSchema>;
