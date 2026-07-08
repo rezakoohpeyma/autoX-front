@@ -13,6 +13,7 @@ import { FormWraper } from '@/components/ui/form/form-wraper';
 import { Input } from '@/components/ui/form/input';
 import { FormLink } from '@/components/ui/form/form-link';
 import useSignIn from '../hooks/use-sign-in';
+import { routes } from '@/config/routes';
 export default function SignInForm(): JSX.Element {
     const { signIn, isSignInLoading } = useSignIn()
     const onSubmit: SubmitHandler<SignInFormType> = (formData) => {
@@ -56,13 +57,26 @@ export default function SignInForm(): JSX.Element {
                 >
                     Password
                 </Input>
-                <FormLink href='#' className='my-6 text-right' linkClasses='text-link font-normal text-base'>Forget Password?</FormLink>
+                <FormLink 
+                    href={routes.resetPassword} 
+                    className='my-6 text-right' 
+                    linkClasses='text-link font-normal text-base'
+                >
+                    Forget Password?
+                </FormLink>
                 <SubmitBtn isLoading={isSignInLoading}>Sign in</SubmitBtn>
             </FormWraper>
             <FormWraper className='text-center'>
                 <Divider className='mb-6'>Or</Divider>
                 <Social />
-                <FormLink question="Don't you have an account?" href='/sign-up' className='text-primary text-lg my-[48px]' linkClasses='text-link font-normal text-lg'>Sign up</FormLink>
+                <FormLink 
+                    question="Don't you have an account?" 
+                    href={routes.signUp} 
+                    className='text-primary text-lg my-12' 
+                    linkClasses='text-link font-normal text-lg'
+                >
+                    Sign up
+                </FormLink>
                 <Copyright />
             </FormWraper>
         </AuthForm>
