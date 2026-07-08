@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/form/input';
 import { Checkbox } from '@/components/ui/form/checkbox';
 import { FormLink } from '@/components/ui/form/form-link';
 import { useSignUp } from '../hooks/use-sign-up';
+import { routes } from '@/config/routes';
 export default function SignUpForm(): JSX.Element {
     const { signUp, isSignUpLoading } = useSignUp()
     const onSubmit: SubmitHandler<SignUpFormType> = (data) => {
@@ -101,7 +102,7 @@ export default function SignUpForm(): JSX.Element {
                 <Divider className='mb-6'>or sign up with</Divider>
                 <Social />
                 <FormLink 
-                    href='/sign-in' 
+                    href={routes.signIn} 
                     question='Already have an account?' 
                     className='text-center text-md font-normal mt-6' 
                     linkClasses='text-link hover:border-link'

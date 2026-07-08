@@ -14,8 +14,14 @@ export const passwordSchema = z
 export const phoneNumberSchema = z
     .string()
     .min(1, 'Mobile number is required')
-    // .regex(/^09\d{9}$/, "Mobile number is not valid (must start with 09 and be 11 digits)");
+    .regex(/^09\d{9}$/, "Mobile number is not valid (must start with 09 and be 11 digits)");
 ;
+
+export const permissionsSchema = z.array(z.string())
+
+export const rolesSchema = z.array(z.object({
+    name: z.string()
+}))
 
 export const deleteAtSchema = z.string().nullable();
 
@@ -44,7 +50,6 @@ export const userSchema = z.object({
 
 })
 
-
 // Form Schemas
 
 export const signInFormSchema = z.object({
@@ -65,6 +70,11 @@ export const signUpFormSchema = z.object({
     path: ['confirmPassword']
 })
 
+export const resetPasswordFormSchema = z.object({
+    phoneNumber: phoneNumberSchema,
+    password: passwordSchema
+})
+
 // Api Schemas (input, output)
 
 export const apiSignUpInputSchema = z.object({
@@ -76,27 +86,22 @@ export const apiSignUpInputSchema = z.object({
 })
 
 export const apiGetMeOutputSchema = z.object({
-    id: z.number(),
     email: z.email(),
-    firstName: z.string(),
-    lastName: z.string(),
     phoneNumber: phoneNumberSchema,
-    isActive: z.boolean(),
-    createdAt: z.string(),
-    updatedAt: z.string(),
-    deletedAt: deleteAtSchema
+    roles: rolesSchema,        
+    permissions: permissionsSchema,
 })
 
-// All of types
 
+// Types
 
 // Reusable Types
 export type UserType = z.infer<typeof userSchema>;
 
-
 // Form Types
 export type SignInFormType = z.infer<typeof signInFormSchema>;
 export type SignUpFormType = z.infer<typeof signUpFormSchema>;
+export type ResetPasswordType = z.infer<typeof resetPasswordFormSchema>
 
 // Api Types
 export type ApiSignUpInputType = z.infer<typeof apiSignUpInputSchema>;

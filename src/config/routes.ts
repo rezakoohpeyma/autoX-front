@@ -3,5 +3,5 @@ export const routes = {
     dashboard: '/dashboard',
     signIn: '/sign-in',
     signUp: '/sign-up',
-
+    resetPassword: '/reset-password'
 }
