@@ -1,4 +1,4 @@
-import * as ReactIcons from "react-icons/fa6";
+import * as ReactIcons from "react-icons/lu";
 
 export type SidebarItemChildType = {
     id: number,

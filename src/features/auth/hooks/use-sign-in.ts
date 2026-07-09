@@ -11,7 +11,6 @@ export default function useSignIn() {
         mutationKey: ['user'],
         mutationFn: signInApi,
         onSuccess(res){
-            console.log(res)
             toast.success(`Welcome back, ${res.data.user.firstName}!`, {
                 className: "capitalize"
             })

@@ -1,6 +1,6 @@
 'use client';
 
-import * as ReactIcons from "react-icons/fa6";
+import * as ReactIcons from "react-icons/lu";
 import {
   Tooltip,
   TooltipContent,
@@ -25,14 +25,14 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
   const isSelected = selectedId === item.id;
   const hasChild = !!item.hasChild;
   
-  const IconComponent = item.icon ? ReactIcons[item.icon] : ReactIcons.FaQuestion;
+  const IconComponent = item.icon ? ReactIcons[item.icon] : ReactIcons.LuFileQuestion;
 
   const renderArrowIcon = () => {
     if (isCollapsed || !hasChild) return null;
     return isSelected ? (
-      <ReactIcons.FaAngleUp className="text-base text-[#5C5E64]" />
+      <ReactIcons.LuChevronUp className="text-base text-[#5C5E64]" />
     ) : (
-      <ReactIcons.FaAngleDown className="text-base text-[#5C5E64]" />
+      <ReactIcons.LuChevronDown className="text-base text-[#5C5E64]" />
     );
   };
 
