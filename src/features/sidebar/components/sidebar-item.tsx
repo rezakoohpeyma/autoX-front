@@ -37,11 +37,7 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
   };
 
   const SidebarContent = (
-    <NavLink
-      href={item.link}
-      onClick={() => onSelectedId(item.id)}
-      className="w-full h-10 p-3 flex justify-between items-center rounded-lg cursor-pointer text-[#5C5E64] text-center transition-all duration-300 delay-75 hover:text-black"
-    >
+    <>
       <span className="flex items-center gap-2">
         <IconComponent className="text-[20px]" />
         {!isCollapsed && (
@@ -52,8 +48,34 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
       </span>
 
       {!isCollapsed && renderArrowIcon()}
-    </NavLink>
+    </>
   );
+
+  const SidebarWraper = hasChild 
+      ? <div
+            onClick={() => onSelectedId(item.id)}
+            className={cn(
+            "w-full h-10 p-3 flex items-center rounded-lg cursor-pointer text-[#5C5E64] text-center transition-all duration-300 delay-75 hover:text-black",
+             isSelected && 'bg-[#F6F6F6] text-black',
+            isCollapsed 
+            ? 'justify-center' 
+            : 'justify-between',
+            )}
+        >
+          {SidebarContent}
+        </div>
+      : <NavLink
+          href={item.link}
+          onClick={() => onSelectedId(item.id)}
+          className={cn(
+            "w-full h-10 p-3 flex items-center rounded-lg cursor-pointer text-[#5C5E64] text-center transition-all duration-300 delay-75 hover:text-black",
+            isCollapsed 
+            ? 'justify-center' 
+            : 'justify-between',
+            )}
+        >
+          {SidebarContent}
+        </NavLink>
 
   const SidebarDropDownContent = (
         <div className="py-3 w-3/5 ml-auto flex justify-center items-stretch gap-3">
@@ -72,7 +94,7 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
         <Tooltip>
           <TooltipTrigger asChild>
             <DropdownMenuTrigger>
-              {SidebarContent}
+              {SidebarWraper}
             </DropdownMenuTrigger>
           </TooltipTrigger>
           <TooltipContent side="right">
@@ -81,7 +103,7 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
         </Tooltip>
       ) : (
         <div className="w-full">
-          {SidebarContent}
+          {SidebarWraper}
         </div>
       )}
       
