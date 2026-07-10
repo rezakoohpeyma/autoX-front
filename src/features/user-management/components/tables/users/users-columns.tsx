@@ -1,10 +1,11 @@
 "use client"
-import { UserType } from "@/features/auth/schema";
+import { UserType } from "@/schemas";
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox }  from "@/components/ui/checkbox";
 import { formatDateTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { LuDot } from "react-icons/lu";
+import UsersRowActions from "./users-row-actions";
 export const usersColumns: ColumnDef<UserType>[] = [
   {
     id: "select",
@@ -69,5 +70,9 @@ export const usersColumns: ColumnDef<UserType>[] = [
     accessorKey: "permissions",
     header: "Permissions",
   },
+  {
+    id:'actions',
+    cell: ({ row }) => <UsersRowActions user={row.original}/>
+  }
   
 ];
