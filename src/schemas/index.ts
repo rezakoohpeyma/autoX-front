@@ -36,5 +36,13 @@ export const userSchema = z.object({
     createdAt: z.string(),
     updatedAt: z.string(),
     deletedAt: deleteAtSchema,
-
 })
+
+
+// Types
+
+// Reusable Types
+export type UserType = z.infer<typeof userSchema>;
+export type PermissionsType = z.infer<typeof permissionsSchema>;
+export type RolesType = z.infer<typeof rolesSchema>;
+export type DeleteAtType = z.infer<typeof deleteAtSchema>;

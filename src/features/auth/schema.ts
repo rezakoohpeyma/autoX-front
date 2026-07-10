@@ -1,4 +1,4 @@
-import { phoneNumberSchema, rolesSchema, permissionsSchema, userSchema, deleteAtSchema } from '@/schemas'
+import { phoneNumberSchema, rolesSchema, permissionsSchema } from '@/schemas'
 import { z } from 'zod'
 
 // Reusable Schemas
@@ -56,12 +56,6 @@ export const apiGetMeOutputSchema = z.object({
 
 
 // Types
-
-// Reusable Types
-export type UserType = z.infer<typeof userSchema>;
-export type PermissionsType = z.infer<typeof permissionsSchema>;
-export type RolesType = z.infer<typeof rolesSchema>;
-export type DeleteAtType = z.infer<typeof deleteAtSchema>;
 
 // Form Types
 export type SignInFormType = z.infer<typeof signInFormSchema>;
