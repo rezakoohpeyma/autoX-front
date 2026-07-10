@@ -8,15 +8,16 @@ type UseGetUsersQueries = {
 } & MetaType
 
 export default function useGetUsers(queries : UseGetUsersQueries) {
-    const { data, isLoading } =  useQuery({
+    const { data, isLoading, refetch, isRefetching } =  useQuery({
         queryKey: ['users', queries],
         queryFn: () => getUsers(queries)
     })
-
     return {
         users: data?.data,
         meta: data?.meta,
-        isUsersLoading: isLoading
+        isUsersLoading: isLoading,
+        usersRefetch: refetch,
+        isUsersRefetching: isRefetching
     }
 }
 

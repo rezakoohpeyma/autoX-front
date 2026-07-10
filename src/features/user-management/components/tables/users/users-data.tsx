@@ -7,6 +7,7 @@ import { useQueryState } from 'nuqs'
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { usersColumns } from './users-columns';
 import { DataTable } from '@/components/data-table';
+import DataTableRefreshButton from '@/components/data-table/data-table-refresh-button';
 
 
 const SEARCH_KEY = 'search';
@@ -26,7 +27,13 @@ export default function UsersTable(): JSX.Element {
     const onPageLimitChange = (size: number) => setLimit(String(size))
 
 
-    const { users, meta, isUsersLoading } = useGetUsers({
+    const { 
+        users,
+        meta, 
+        isUsersLoading, 
+        usersRefetch, 
+        isUsersRefetching 
+    } = useGetUsers({
         page: Number(page),
         limit: Number(limit),
         search,
@@ -58,6 +65,7 @@ export default function UsersTable(): JSX.Element {
         >
             <DataTableToolbar>
                 <DataTableSearch queryKey={SEARCH_KEY} placeholder='Searching Name...'/>
+                <DataTableRefreshButton onRefresh={usersRefetch} loading={isUsersRefetching}/>
             </DataTableToolbar>
         </DataTable>
     )
