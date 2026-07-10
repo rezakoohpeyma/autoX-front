@@ -1,11 +1,11 @@
 import {
-    baseResponseSchema,
     apiGetMeOutputSchema,
     signInFormSchema,
-    userSchema, 
-    tokenSchema, 
+    
     apiSignUpInputSchema 
 } from "../schema";
+
+import { userSchema, baseResponseSchema, tokenSchema,  } from "@/schemas";
 
 export const authRoutes = {
     '/api/auth/register': {
