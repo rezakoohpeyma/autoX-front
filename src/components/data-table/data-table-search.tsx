@@ -21,9 +21,9 @@ export default function DataTableSearch({ queryKey, placeholder = "Searching..."
 
     const debouncedValue = useDebounce(inputValue, 500);
 
-useEffect(() => {
-  setSearch(debouncedValue);
-}, [debouncedValue]);
+    useEffect(() => {
+        setSearch(debouncedValue);
+    }, [debouncedValue, setSearch]);
 
     return (
         <Input
