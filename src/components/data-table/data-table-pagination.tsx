@@ -2,26 +2,43 @@ import { HiOutlineChevronDoubleLeft, HiOutlineChevronDoubleRight, HiOutlineChevr
 import { cn } from '@/lib/utils';
 import { ComponentProps, JSX } from 'react';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select';
-import { Table } from '@tanstack/react-table';
 import { Button } from '../ui/button';
+import { MetaType } from "@/features/user-management/schemas";
 
-type DataTablePaginationProps<T> = {
-    table: Table<T>,
-    pageSizes?: number[]
+type DataTablePaginationProps = {
+    pageSizes?: number[],
+    pagination: MetaType,
+    onPageChange: (page : number) => void,
+    onPageLimitChange: (size: number) => void
 } & ComponentProps<'div'>;
-export default function DataTablePagination<T>({
-    table,
+export default function DataTablePagination({
     pageSizes = [10, 15, 20],
+    pagination,
+    onPageChange,
+    onPageLimitChange,
     className,
     ...others
-}: DataTablePaginationProps<T>): JSX.Element {
-    const pageCount = table.getPageCount();
-    const pageIndex = table.getState().pagination.pageIndex;
-    const pageSize = table.getState().pagination.pageSize;
-    const totalCount = table.getFilteredRowModel().rows.length;
+}: DataTablePaginationProps): JSX.Element {
+    const {
+        page,
+        limit, 
+        hasNextPage, 
+        hasPreviousPage, 
+        totalItems, 
+        totalPages
+     } = pagination;
 
-    const start = totalCount === 0 ? 0 : pageIndex * pageSize + 1;
-    const end = Math.min((pageIndex + 1) * pageSize, totalCount);
+
+    const start = totalItems === 0 
+        ? 0 
+        : page * limit + 1;
+    const end = Math.min((page + 1) * limit, totalItems || 0);
+
+    const visiblePages = 3;
+    const startPage = Math.max(
+    1,
+    Math.min(page, (totalPages ?? 1) - visiblePages + 1)
+);
     return (
         <div 
             className={cn("flex justify-between items-center mt-7.5", className)}
@@ -29,7 +46,7 @@ export default function DataTablePagination<T>({
         >
             <div>
                 <p>
-                    {start}-{end} of results {totalCount}
+                    {start}-{end} of results {totalItems}
                 </p>
             </div>
             <div className="flex justify-center items-center gap-2">
@@ -39,8 +56,8 @@ export default function DataTablePagination<T>({
                         className="cursor-pointer"
                         variant="ghost"
                         size='icon'
-                        onClick={() => table.setPageIndex(0)}
-                        disabled={!table.getCanPreviousPage()}
+                        onClick={() => onPageChange(1)}
+                        disabled={!hasPreviousPage}
                     >
                     <HiOutlineChevronDoubleLeft />
                     </Button>
@@ -49,26 +66,30 @@ export default function DataTablePagination<T>({
                         className="cursor-pointer"
                         variant="ghost"
                         size='icon'
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
+                        onClick={() => onPageChange((page + 1) - 1)}
+                        disabled={!hasPreviousPage}
                     >
                     <HiOutlineChevronLeft />
                     </Button>
                 </div>
                 <div className="flex justify-center items-center gap-1">
                     <div className="space-x-1">
-                        {Array.from({ length: 3 }, (value, i) => 
-                            pageIndex + i < pageCount  && 
-                            <Button 
-                                size='icon'
-                                variant={pageIndex === pageIndex + (i) ? 'default' : 'ghost'}
-                                className="text-base font-bold cursor-pointer" 
-                                onClick={() => table.setPageIndex(pageIndex + (i))}
-                                key={i}
-                            >
-                            {pageIndex + (i + 1)}
-                            </Button>
-                        )}
+                        {Array.from({length: Math.min(visiblePages, totalPages ?? 0)},
+                            (_, i) => {
+                                const currentPage = startPage + i;
+                                return (
+                                <Button
+                                    key={currentPage}
+                                    size="icon"
+                                    variant={page + 1 === currentPage ? "default" : "ghost"}
+                                    className="text-base font-bold cursor-pointer"
+                                    onClick={() => onPageChange(currentPage)}
+                                >
+                                    {currentPage}
+                                </Button>
+                                );
+                            }
+                            )}
                     </div>
                 </div>
                 <div>
@@ -77,8 +98,8 @@ export default function DataTablePagination<T>({
                         className="cursor-pointer"
                         variant="ghost"
                         size='icon'
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
+                        onClick={() => onPageChange(((page + 1) + 1))}
+                        disabled={!hasNextPage}
                     >
                         <HiOutlineChevronRight />
                     </Button>
@@ -87,8 +108,8 @@ export default function DataTablePagination<T>({
                         className="cursor-pointer"
                         variant="ghost"
                         size='icon'
-                        onClick={() => table.setPageIndex(pageCount - 1)}
-                        disabled={!table.getCanNextPage()}
+                        onClick={() => onPageChange(totalPages || 0)}
+                        disabled={!hasNextPage}
                     >
                         <HiOutlineChevronDoubleRight />
                     </Button>
@@ -96,13 +117,13 @@ export default function DataTablePagination<T>({
             </div>
             <div>
                 <Select 
-                    value={String(table.getState().pagination.pageSize)}
+                    value={String(limit)}
                     onValueChange={(value) => {
-                        table.setPageSize(Number(value))
+                        onPageLimitChange(Number(value))
                     }}
                 >
                     <SelectTrigger className='rounded-sm bg-primary text-white! border-0! cursor-pointer'>
-                        <SelectValue placeholder={table.getState().pagination.pageSize}/>
+                        <SelectValue placeholder={limit}/>
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
