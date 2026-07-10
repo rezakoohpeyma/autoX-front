@@ -24,12 +24,12 @@ export const authRoutes = {
             })
         })
     },
-    '/api/auth/refresh': {
+    '@post/api/auth/refresh': {
         output: baseResponseSchema.extend({
             data: tokenSchema
         })
     },
-    "/api/auth/logout": {
+    "@post/api/auth/logout": {
         output: baseResponseSchema
     },
     "/api/auth/me":{
