@@ -26,7 +26,10 @@ export const routes = {
 
     // User Management Routes
     userManagement: "/user-management",
+    
     userManagementUsers: "/user-management/users",
+    userManagementAddUser: '/user-management/users/add',
+
     userManagementRoles: "/user-management/roles",
     userManagementPermissions: "/user-management/permissions",
 
