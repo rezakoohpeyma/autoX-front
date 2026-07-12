@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { MetaType } from '../schemas';
 import { getUsers } from '../api/queries';
+import { USERS_KEY } from '@/constants/query-keys';
 
 type UseGetUsersQueries = {
     search?: string,
@@ -9,7 +10,7 @@ type UseGetUsersQueries = {
 
 export default function useGetUsers(queries : UseGetUsersQueries) {
     const { data, isLoading, refetch, isRefetching } =  useQuery({
-        queryKey: ['users', queries],
+        queryKey: [USERS_KEY, queries],
         queryFn: () => getUsers(queries)
     })
     return {
