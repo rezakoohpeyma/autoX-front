@@ -8,11 +8,21 @@ import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { usersColumns } from './users-columns';
 import { DataTable } from '@/components/data-table';
 import DataTableRefreshButton from '@/components/data-table/data-table-refresh-button';
+import { useQueryClient } from '@tanstack/react-query';
+import { USERS_KEY } from '@/constants/query-keys';
+import DataTableButton from '@/components/data-table/data-table-button';
+import { LuPlus } from 'react-icons/lu';
+import DataTableWraper from '@/components/data-table/data-table-wraper';
+import UsersAddButton from './users-add-button';
+import UsersExportButton from './users-export-button';
 
 
 const SEARCH_KEY = 'search';
 
 export default function UsersTable(): JSX.Element {
+
+    const queryClient = useQueryClient();
+
     const [page, setPage]  = useQueryState('page', {
         defaultValue: '1'
     })
@@ -31,12 +41,16 @@ export default function UsersTable(): JSX.Element {
         users,
         meta, 
         isUsersLoading, 
-        usersRefetch, 
+        usersRefetch,
         isUsersRefetching 
     } = useGetUsers({
         page: Number(page),
         limit: Number(limit),
         search,
+    })
+
+    const handleRefresh = () => queryClient.invalidateQueries({
+        queryKey: [USERS_KEY],
     })
 
     const pagination = {
@@ -65,7 +79,11 @@ export default function UsersTable(): JSX.Element {
         >
             <DataTableToolbar>
                 <DataTableSearch queryKey={SEARCH_KEY} placeholder='Searching Name...'/>
-                <DataTableRefreshButton onRefresh={usersRefetch} loading={isUsersRefetching}/>
+                <DataTableWraper className='gap-2'>
+                    <UsersExportButton />
+                    <UsersAddButton />
+                    <DataTableRefreshButton onRefresh={handleRefresh} />
+                </DataTableWraper>
             </DataTableToolbar>
         </DataTable>
     )
