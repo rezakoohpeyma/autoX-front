@@ -13,7 +13,7 @@ export default function ProtectedProviders({ children, ...other } : ProtectedPro
     const router = useRouter()
     const { user, isUserLoading } = useGetUser();
 
-    if(isUserLoading) return  <Loading hasText={true} className='mt-30' />
+    if(isUserLoading) return  <Loading text="Loading..." className='mt-30' />
         
     if(!isUserLoading && !user)
         router.push(routes.signIn)

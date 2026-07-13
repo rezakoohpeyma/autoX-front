@@ -7,7 +7,7 @@ type SubmitBtnProps = {
     isLoading?: boolean
 } & ComponentProps<'button'>
 
-export default function SubmitBtn({ children, isLoading = false, className, ...other } : SubmitBtnProps): JSX.Element {
+export default function SubmitBtn({ children, isLoading = true, className, ...other } : SubmitBtnProps): JSX.Element {
     return (
         <FormSubmitBtn 
             className={cn(
@@ -17,7 +17,7 @@ export default function SubmitBtn({ children, isLoading = false, className, ...o
             disabled={isLoading}
             {...other}
         >
-            {!isLoading ? children : <Loading className='size-6 border-3 border-white border-b-transparent' hasText={false}/>}
+            {!isLoading ? children : <Loading spinnerClasses='border-white border-b-transparent' size='md'/>}
         </FormSubmitBtn>
     )
 }
