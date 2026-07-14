@@ -4,16 +4,17 @@ import AuthForm from './ui/auth-form';
 import Copyright from '@/components/ui/copyright';
 import Divider from './ui/divider';
 import Social from './social';
+import useSignIn from '../hooks/use-sign-in';
 import { JSX } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { signInFormSchema, SignInFormType } from '../schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormTitle } from '@/components/ui/form/form-tiitle';
-import { FormWraper } from '@/components/ui/form/form-wraper';
-import { Input } from '@/components/ui/form/input';
-import { FormLink } from '@/components/ui/form/form-link';
-import useSignIn from '../hooks/use-sign-in';
+import { FormTitle } from '@/components/ui/form/components/form-tiitle';
+import { FormWraper } from '@/components/ui/form/components/form-wraper';
+import { FormInput } from '@/components/ui/form/components/form-input';
+import { FormLink } from '@/components/ui/form/components/form-link';
 import { routes } from '@/config/routes';
+
 export default function SignInForm(): JSX.Element {
     const { signIn, isSignInLoading } = useSignIn()
     const onSubmit: SubmitHandler<SignInFormType> = (formData) => {
@@ -40,15 +41,15 @@ export default function SignInForm(): JSX.Element {
                 </p>
             </FormWraper>
             <FormWraper>
-                <Input 
+                <FormInput 
                     nameId='phoneNumber'
                     placeholder='09130001234'
                     defaultValue="09162726731"
                     disabled={isSignInLoading}
                 >
                     Phone Number
-                </Input>
-                <Input 
+                </FormInput>
+                <FormInput 
                     type='password'
                     nameId='password'
                     placeholder='At least 8 characters'
@@ -56,7 +57,7 @@ export default function SignInForm(): JSX.Element {
                     disabled={isSignInLoading}
                 >
                     Password
-                </Input>
+                </FormInput>
                 <FormLink 
                     href={routes.resetPassword} 
                     className='my-6 text-right' 

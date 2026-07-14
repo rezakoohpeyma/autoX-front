@@ -1,12 +1,14 @@
 import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
 
+type FormSubmitBtnProps = ComponentProps<"button">;
+
 export function FormSubmitBtn({
   children,
   className,
   disabled,
   ...other
-}: ComponentProps<"button">) {
+}: FormSubmitBtnProps) {
   return (
     <button
       type="submit"

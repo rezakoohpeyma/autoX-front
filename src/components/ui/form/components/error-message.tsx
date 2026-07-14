@@ -1,7 +1,7 @@
 import { ComponentProps, JSX } from 'react';
 import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
 
-type ErrorMessageProps = ComponentProps<'p'>
+type ErrorMessageProps = ComponentProps<'p'>;
 
 export default function ErrorMessage({ children ,...other } : ErrorMessageProps): JSX.Element {
     return (

@@ -1,4 +1,4 @@
-import { FormSubmitBtn } from '@/components/ui/form/form-submit-button';
+import { FormSubmitBtn } from '@/components/ui/form/components/form-submit-button';
 import Loading from '@/components/ui/loading';
 import { cn } from '@/lib/utils';
 import { ComponentProps, JSX } from 'react';

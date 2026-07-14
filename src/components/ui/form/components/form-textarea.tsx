@@ -1,11 +1,16 @@
 import ErrorMessage from "./error-message";
 import { ComponentProps, useId, useState } from "react";
-import { FieldValues, Path } from "react-hook-form";
+import { FieldValues, Path, useFormContext } from "react-hook-form";
 import { HiOutlineExclamationTriangle } from "react-icons/hi2";
-import { useFormContext } from "./use-form-context";
+import { useFormStyleContext } from "../hooks/use-form-style-context";
 import { cn } from "@/lib/utils";
 
-export function Textarea<T extends FieldValues>({
+type FormTextareaProps<TForm> = ComponentProps<"textarea"> & {
+  nameId: Path<TForm>;
+  iconElement: React.ReactNode;
+}
+
+export function FormTextarea<TForm extends FieldValues>({
   nameId,
   placeholder,
   children,
@@ -15,22 +20,22 @@ export function Textarea<T extends FieldValues>({
   iconElement,
   rows = 4,
   ...other
-}: ComponentProps<"textarea"> & {
-  nameId: Path<T>;
-  iconElement: React.ReactNode;
-}) {
+} : FormTextareaProps<TForm>) {
   const inputID = useId();
   const [showError, setShowError] = useState(false);
+
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<TForm>();
 
   const {
     inputClasses,
     inputBoxClasses,
     inputFieldClasses,
     inputErrorClasses,
-    register,
     requiredMessage,
-    errors,
-  } = useFormContext<T>();
+  } = useFormStyleContext();
 
   const error = nameId ? errors?.[nameId]?.message : "";
 

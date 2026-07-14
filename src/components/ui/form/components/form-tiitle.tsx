@@ -1,6 +1,9 @@
 import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
-export function FormTitle({ children, className, ...other }: ComponentProps<"h2">) {
+
+type FormTitleProps = ComponentProps<"h2">;
+
+export function FormTitle({ children, className, ...other } : FormTitleProps) {
   return (
     <h2
       className={cn(
