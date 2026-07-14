@@ -9,7 +9,7 @@ type UseGetUsersQueries = {
 } & MetaType
 
 export default function useGetUsers(queries : UseGetUsersQueries) {
-    const { data, isLoading, refetch, isRefetching } =  useQuery({
+    const { data, isLoading } =  useQuery({
         queryKey: [USERS_KEY, queries],
         queryFn: () => getUsers(queries)
     })
@@ -17,8 +17,6 @@ export default function useGetUsers(queries : UseGetUsersQueries) {
         users: data?.data,
         meta: data?.meta,
         isUsersLoading: isLoading,
-        usersRefetch: refetch,
-        isUsersRefetching: isRefetching
     }
 }
 
