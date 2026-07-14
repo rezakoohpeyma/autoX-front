@@ -1,4 +1,4 @@
-import { phoneNumberSchema, rolesSchema, permissionsSchema, passwordSchema } from '@/schemas'
+import { phoneNumberSchema, rolesSchema, permissionsSchema, passwordSchema, rolesNameSchema } from '@/schemas'
 import { z } from 'zod'
 // Form Schemas
 
@@ -38,7 +38,7 @@ export const apiSignUpInputSchema = z.object({
 export const apiGetMeOutputSchema = z.object({
     email: z.email(),
     phoneNumber: phoneNumberSchema,
-    roles: rolesSchema,        
+    roles: rolesNameSchema,        
     permissions: permissionsSchema,
 })
 
