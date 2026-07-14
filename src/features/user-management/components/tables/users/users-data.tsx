@@ -10,8 +10,6 @@ import { DataTable } from '@/components/data-table';
 import DataTableRefreshButton from '@/components/data-table/data-table-refresh-button';
 import { useQueryClient } from '@tanstack/react-query';
 import { USERS_KEY } from '@/constants/query-keys';
-import DataTableButton from '@/components/data-table/data-table-button';
-import { LuPlus } from 'react-icons/lu';
 import DataTableWraper from '@/components/data-table/data-table-wraper';
 import UsersAddButton from './users-add-button';
 import UsersExportButton from './users-export-button';
@@ -40,9 +38,7 @@ export default function UsersTable(): JSX.Element {
     const { 
         users,
         meta, 
-        isUsersLoading, 
-        usersRefetch,
-        isUsersRefetching 
+        isUsersLoading
     } = useGetUsers({
         page: Number(page),
         limit: Number(limit),
