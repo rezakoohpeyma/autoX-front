@@ -18,7 +18,7 @@ export const phoneNumberSchema = z
 
 export const permissionsSchema = z.array(z.string())
 
-export const rolesSchema = z.array(z.object({
+export const rolesNameSchema = z.array(z.object({
     name: z.string()
 }))
 
@@ -48,10 +48,18 @@ export const userSchema = z.object({
     deletedAt: deleteAtSchema,
 })
 
-
+export const rolesSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string(),
+    isActive: z.boolean(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+});
 // Types
 
 // Reusable Types
+export type RoleType = z.infer<typeof rolesSchema>;
 export type UserType = z.infer<typeof userSchema>;
 export type PermissionsType = z.infer<typeof permissionsSchema>;
 export type RolesType = z.infer<typeof rolesSchema>;
