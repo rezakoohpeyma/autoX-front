@@ -12,13 +12,10 @@ type MultiSelectProps<
   TValue extends string | number
 > = {
   nameId: Path<TForm>;
-
   options: TOption[];
-
   defaultTxt?: string;
-
   getOptionValue(option: TOption): TValue;
-
+  disabled: boolean;
   getOptionLabel(option: TOption): React.ReactNode;
 } & ComponentProps<"div">;
 
@@ -29,6 +26,7 @@ export default function MultiSelect<TForm extends FieldValues, TOptions, TValue 
         options,
         getOptionValue,
         getOptionLabel,
+        disabled,
     } : MultiSelectProps<TForm, TOptions, TValue>
     ): JSX.Element {
 
@@ -58,13 +56,12 @@ export default function MultiSelect<TForm extends FieldValues, TOptions, TValue 
                     const selectedValues = (field.value ?? []) as TValue[];
 
                     const toggleValue = (value: TValue) => {
-                    const exists = selectedValues.includes(value);
+                        const exists = selectedValues.includes(value);
+                        const newValues = exists
+                            ? selectedValues.filter(item => item !== value)
+                            : [...selectedValues, value];
 
-                    const newValues = exists
-                        ? selectedValues.filter(item => item !== value)
-                        : [...selectedValues, value];
-
-                    field.onChange(newValues);
+                        field.onChange(newValues);
                     };
                     
                     return (
@@ -79,6 +76,7 @@ export default function MultiSelect<TForm extends FieldValues, TOptions, TValue 
                                             inputBoxClasses
                                         )
                                     }
+                                    disabled={disabled}
                                     defaultValue={defaultTxt}
                                 />
                             </DropdownMenuTrigger>
