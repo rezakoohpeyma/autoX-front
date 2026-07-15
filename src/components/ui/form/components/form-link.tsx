@@ -1,6 +1,11 @@
-import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
+
+type FormLinkProps = ComponentProps<"link"> & {
+  question?: string;
+  linkClasses: string
+}
 
 export function FormLink({
   question,
@@ -8,10 +13,7 @@ export function FormLink({
   className,
   linkClasses,
   children,
-}: ComponentProps<"link"> & {
-  question?: string;
-  linkClasses: string
-}) {
+}: FormLinkProps) {
   return (
     <p className={cn("text-gray-400 text-sm", className || '')}>
       {question && (

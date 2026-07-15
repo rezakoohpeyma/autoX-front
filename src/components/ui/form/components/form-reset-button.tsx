@@ -1,14 +1,20 @@
 import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
-import { useFormContext } from "./use-form-context";
+import { FieldValues, useFormContext } from "react-hook-form";
 
-export function FormResetBtn({
+type FormResetBtnProps = ComponentProps<"button">;
+
+export function FormResetBtn<TForm extends FieldValues>({
   children,
   className,
   disabled,
   ...other
-}: ComponentProps<"button">) {
-  const { resetForm } = useFormContext();
+}: FormResetBtnProps) {
+
+  const { reset } = useFormContext<TForm>();
+  function handleReset(){
+    reset();
+  }
 
   return (
     <button
@@ -16,7 +22,7 @@ export function FormResetBtn({
       className={cn(className || "")}
       disabled={disabled}
       style={{ cursor: disabled ? "not-allowed" : "pointer" }}
-      onClick={resetForm}
+      onClick={handleReset}
       {...other}
     >
       {children}

@@ -1,5 +1,18 @@
 import z from "zod";
 
+export const firstNameSchema = z.string().min(2, 'First Name must be more than 2 characters');
+export const lastNameSchema = z.string().min(2, 'Last Name must be more than 2 characters');
+
+export const passwordSchema = z
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
+    .regex(/[0-9]/, 'Password must contain at least one number')
+    .regex(/[^A-Za-z0-9]/, 'Password must contain at least one special character')
+    .refine(val => !val.includes(' '), 'Password must not contain spaces')
+
+
 export const phoneNumberSchema = z
     .string()
     .min(1, 'Mobile number is required')
@@ -8,7 +21,7 @@ export const phoneNumberSchema = z
 
 export const permissionsSchema = z.array(z.string())
 
-export const rolesSchema = z.array(z.object({
+export const rolesNameSchema = z.array(z.object({
     name: z.string()
 }))
 
@@ -38,10 +51,18 @@ export const userSchema = z.object({
     deletedAt: deleteAtSchema,
 })
 
-
+export const rolesSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string(),
+    isActive: z.boolean(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+});
 // Types
 
 // Reusable Types
+export type RoleType = z.infer<typeof rolesSchema>;
 export type UserType = z.infer<typeof userSchema>;
 export type PermissionsType = z.infer<typeof permissionsSchema>;
 export type RolesType = z.infer<typeof rolesSchema>;

@@ -1,5 +1,5 @@
 
-import Form from "@/components/ui/form/form";
+import Form from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { FieldValues, SubmitHandler, UseFormProps } from "react-hook-form";
 import { JSX } from "react/jsx-runtime";

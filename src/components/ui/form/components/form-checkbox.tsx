@@ -1,23 +1,22 @@
 "use client";
-import { ComponentProps, useId } from "react";
-import { FieldValues, Path } from "react-hook-form";
-import { HiOutlineExclamationTriangle } from "react-icons/hi2"; // آیکون خطا
-import { cn } from "@/lib/utils"; // تابع ترکیب کلاس‌ها
-import { useFormContext } from "./use-form-context";
-import ErrorMessage from "./error-message";
 
-// تعریف پراپ‌های کامپوننت Checkbox
-export type CheckboxProps<T extends FieldValues> = ComponentProps<"input"> & {
+import ErrorMessage from "./error-message";
+import { ComponentProps, useId } from "react";
+import { FieldValues, Path, useFormContext } from "react-hook-form";
+import { cn } from "@/lib/utils";
+import { useFormStyleContext } from "../hooks/use-form-style-context";
+
+export type FormCheckboxProps<T extends FieldValues> = ComponentProps<"input"> & {
   nameId: Path<T>;
   required?: boolean; 
   defaultValue?: boolean; 
   disabled?: boolean; 
-  checkboxContainerClasses?: string; // کلاس برای div والد کلی
+  checkboxContainerClasses?: string;
   labelClasses?: string; 
   inputClasses?: string; 
 };
 
-export function Checkbox<T extends FieldValues>({
+export function FormCheckbox<TForm extends FieldValues>({
   nameId,
   children,
   required = false,
@@ -27,15 +26,19 @@ export function Checkbox<T extends FieldValues>({
   labelClasses,
   inputClasses,
   ...other
-}: CheckboxProps<T>) {
-  const inputID = useId();
+}: FormCheckboxProps<TForm>) {
+
+  const inputId = useId();
+
+  const {
+    register,
+    formState:  { errors },   
+  } = useFormContext<TForm>();
 
   const {
     inputErrorClasses,
-    register,
-    errors,   
     requiredMessage,
-  } = useFormContext<T>();
+  } = useFormStyleContext();
 
   const error = nameId ? errors?.[nameId]?.message : "";
   const { ref, ...fieldProps } = register?.(nameId, {
@@ -55,7 +58,7 @@ export function Checkbox<T extends FieldValues>({
         {/* Input checkbox */}
         <input
           ref={ref}
-          id={inputID}
+          id={inputId}
           type="checkbox"
           className={cn(
             `h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer`,
@@ -69,7 +72,7 @@ export function Checkbox<T extends FieldValues>({
       </div>
         {children && (
             <label
-                htmlFor={inputID}
+                htmlFor={inputId}
                 className={cn(
                     `cursor-pointer text-sm text-primary`,
                     labelClasses || ''

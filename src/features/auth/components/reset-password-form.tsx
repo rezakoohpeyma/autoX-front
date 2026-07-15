@@ -1,15 +1,16 @@
 'use client';
-import { JSX } from 'react';
 import AuthForm from './ui/auth-form';
-import { FormWraper } from '@/components/ui/form/form-wraper';
-import { Input } from '@/components/ui/form/input';
-import { resetPasswordFormSchema, ResetPasswordType } from '../schema';
+import SubmitBtn from './ui/submit-btn';
+import Copyright from '@/components/ui/copyright';
+import { JSX } from 'react';
+import { FormWraper } from '@/components/ui/form/components/form-wraper';
+import { FormInput } from '@/components/ui/form/components/form-input';
+import { resetPasswordFormSchema, ResetPasswordType } from '../schemas';
 import { SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import SubmitBtn from './ui/submit-btn';
-import { FormLink } from '@/components/ui/form/form-link';
-import Copyright from '@/components/ui/copyright';
+import { FormLink } from '@/components/ui/form/components/form-link';
 import { routes } from '@/config/routes';
+
 export default function ResetPasswordForm(): JSX.Element {
     const onSubmit: SubmitHandler<ResetPasswordType> = (formData) => {}
     const formOpt = {
@@ -22,17 +23,17 @@ export default function ResetPasswordForm(): JSX.Element {
             className="w-full max-w-97 mx-auto flex justify-center items-center flex-col gap-6 sm:gap-12"
         >
             <FormWraper>
-                <Input
+                <FormInput
                     nameId='phoneNumber'
                 >
                     Phone Number
-                </Input>
-                <Input
+                </FormInput>
+                <FormInput
                     type='password'
                     nameId='password'
                 >
                     Password
-                </Input>
+                </FormInput>
                 <SubmitBtn className='mt-4'>Send Code</SubmitBtn>
             </FormWraper>
             <FormWraper className='text-center'>

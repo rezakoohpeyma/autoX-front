@@ -1,12 +1,20 @@
-import { baseResponseSchema, permissionsSchema, userSchema } from "@/schemas";
+import { baseResponseSchema, permissionsSchema, rolesSchema, userSchema } from "@/schemas";
 import z from "zod";
-import { apiChangeStatusInputSchema, metaSchemas as ApiGetMetaSchemas } from "../schemas";
+import { apiChangeStatusInputSchema,createUserFormSchema,metaSchemas } from "../schemas";
 
 export const userManagementRoutes = {
     '/api/users': {
         output: baseResponseSchema.extend({
             data: z.array(userSchema),
-            meta: ApiGetMetaSchemas,
+            meta: metaSchemas,
+        })
+    },
+    "@post/api/users": {
+        input: createUserFormSchema,
+        output: baseResponseSchema.extend({
+            data: userSchema.extend({
+                permissions: permissionsSchema,
+            })
         })
     },
     '@patch/api/users/status': {
@@ -16,5 +24,11 @@ export const userManagementRoutes = {
                 permission: permissionsSchema
             })
         })
-    }
+    },
+    "/api/roles": {
+        output: baseResponseSchema.extend({
+            data: z.array(rolesSchema),
+            meta: metaSchemas,
+        })
+    },
 }

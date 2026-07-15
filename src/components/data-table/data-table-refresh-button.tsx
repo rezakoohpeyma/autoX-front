@@ -4,17 +4,17 @@ import { LuRefreshCcw } from 'react-icons/lu';
 
 interface DataTableRefreshButtonProps {
     onRefresh(): void,
-    loading: boolean,
+    loading?: boolean,
 }
 
-export default function DataTableRefreshButton({ onRefresh, loading } : DataTableRefreshButtonProps): JSX.Element {
+export default function DataTableRefreshButton({ onRefresh, loading = false } : DataTableRefreshButtonProps): JSX.Element {
     return (
         <Button
             onClick={onRefresh}
             disabled={loading}
             variant='outline'
-            size={'icon-sm'}
-            className="text-primary/80 border-primary/80 cursor-pointer text-xl"
+            className="text-primary/80 border-primary/80 text-7xl! p-0 cursor-pointer"
+            size={'icon-lg'}
         >
             <LuRefreshCcw />
         </Button>

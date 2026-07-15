@@ -12,7 +12,7 @@ interface UsesrRowActionsProps {
 
 export default function UsersRowActions({ user } : UsesrRowActionsProps): JSX.Element {
 
-    const { changeUsersStatus, isChangeStatusLoading } = useChangeUsersStatus()
+    const { changeUsersStatus } = useChangeUsersStatus()
     const menuDatas = useMemo(() => 
     [
         {

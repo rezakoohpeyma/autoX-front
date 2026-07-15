@@ -6,7 +6,7 @@ export default function UmUsersPage(): JSX.Element {
     return (
         <div>
             <PageTitle title='User Management' description='Manage users, roles and permissions'/>
-            <div className='mt-8.5'>
+            <div>
                 <UsersTable />
             </div>
         </div>

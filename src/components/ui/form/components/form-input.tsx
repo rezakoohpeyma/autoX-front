@@ -1,7 +1,9 @@
 "use client";
+
+import ErrorMessage from "./error-message";
 import { ComponentProps, useId, useState } from "react";
-import { FieldValues, Path } from "react-hook-form";
-import { useFormContext } from "./use-form-context";
+import { FieldValues, Path, useFormContext } from "react-hook-form";
+import { useFormStyleContext } from "../hooks/use-form-style-context";
 import { IconContext } from "react-icons";
 import {
   HiOutlineExclamationTriangle,
@@ -9,9 +11,13 @@ import {
   HiOutlineEyeSlash,
 } from "react-icons/hi2";
 import { cn } from "@/lib/utils";
-import ErrorMessage from "./error-message";
 
-export function Input<T extends FieldValues>({
+type FormInputProps<TForm extends FieldValues> = ComponentProps<"input"> & {
+  nameId: Path<TForm>;
+  iconElement?: React.ReactNode;
+}
+
+export function FormInput<TForm extends FieldValues>({
   type = "text",
   nameId,
   placeholder,
@@ -21,27 +27,30 @@ export function Input<T extends FieldValues>({
   defaultValue,
   disabled,
   ...other
-}: ComponentProps<"input"> & {
-  nameId: Path<T>;
-  iconElement?: React.ReactNode;
-}) {
-  const inputID = useId();
+}: FormInputProps<TForm>) {
+
+  const inputId = useId();
   const [showError, setShowError] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<TForm>()
+
   const {
     inputClasses,
     inputFieldClasses,
     inputBoxClasses,
     inputErrorClasses,
-    register,
-    errors,
     requiredMessage,
-  } = useFormContext<T>();
+  } = useFormStyleContext();
 
   const error = nameId ? errors?.[nameId]?.message : "";
+  
   return (
     <div className={inputFieldClasses}>
-      {children && <label htmlFor={inputID}>{children}</label>}
+      {children && <label htmlFor={inputId}>{children}</label>}
       <div
         className={cn(
           `relative flex justify-between items-center px-2`,
@@ -50,7 +59,7 @@ export function Input<T extends FieldValues>({
         )}
       >
         {!children && iconElement && (
-          <label className="cursor-pointer" htmlFor={inputID}>
+          <label className="cursor-pointer" htmlFor={inputId}>
             {iconElement}
           </label>
         )}
@@ -64,7 +73,7 @@ export function Input<T extends FieldValues>({
           placeholder={placeholder}
           {...register?.(nameId, { required: required && requiredMessage })}
           {...other}
-          id={inputID}
+          id={inputId}
           disabled={disabled}
           defaultValue={defaultValue}
         />

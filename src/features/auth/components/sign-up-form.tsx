@@ -5,15 +5,16 @@ import Social from './social';
 import Divider from './ui/divider';
 import { JSX } from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import { signUpFormSchema, SignUpFormType } from '../schema';
+import { signUpFormSchema, SignUpFormType } from '../schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormWraper } from '@/components/ui/form/form-wraper';
-import { FormTitle } from '@/components/ui/form/form-tiitle';
-import { Input } from '@/components/ui/form/input';
-import { Checkbox } from '@/components/ui/form/checkbox';
-import { FormLink } from '@/components/ui/form/form-link';
+import { FormWraper } from '@/components/ui/form/components/form-wraper';
+import { FormTitle } from '@/components/ui/form/components/form-tiitle';
+import { FormInput } from '@/components/ui/form/components/form-input';
+import { FormCheckbox } from '@/components/ui/form/components/form-checkbox';
+import { FormLink } from '@/components/ui/form/components/form-link';
 import { useSignUp } from '../hooks/use-sign-up';
 import { routes } from '@/config/routes';
+
 export default function SignUpForm(): JSX.Element {
     const { signUp, isSignUpLoading } = useSignUp()
     const onSubmit: SubmitHandler<SignUpFormType> = (data) => {
@@ -34,41 +35,41 @@ export default function SignUpForm(): JSX.Element {
             </FormWraper>
             <FormWraper>
                 <FormWraper className='flex justify-center items-start flex-col sm:gap-4 sm:flex-row'>
-                    <Input 
+                    <FormInput 
                         nameId='firstName'
                         placeholder='Milad'
                         defaultValue="Milad"
                         disabled={isSignUpLoading}
                     >
                         First Name
-                    </Input>
-                    <Input 
+                    </FormInput>
+                    <FormInput 
                         nameId='lastName'
                         placeholder='Afzali'
                         defaultValue="Afzali"
                         disabled={isSignUpLoading}
                     >
                         Last Name
-                    </Input>
+                    </FormInput>
                 </FormWraper>
                 <FormWraper>
-                    <Input 
+                    <FormInput 
                         nameId='phoneNumber'
                         placeholder='0913000123'
                         defaultValue="09023351759"
                         disabled={isSignUpLoading}
                     >
                         Phone Number
-                    </Input>
-                    <Input 
+                    </FormInput>
+                    <FormInput 
                         nameId='email'
                         placeholder='test2@gamil.com'
                         defaultValue="test2@gmail.com"
                         disabled={isSignUpLoading}
                     >
                         Email
-                    </Input>
-                    <Input 
+                    </FormInput>
+                    <FormInput 
                         nameId='password'
                         type='password'
                         placeholder='At least 8 characters'
@@ -76,8 +77,8 @@ export default function SignUpForm(): JSX.Element {
                         disabled={isSignUpLoading}
                     >
                         Password
-                    </Input>
-                    <Input 
+                    </FormInput>
+                    <FormInput 
                         type='password'
                         nameId='confirmPassword'
                         placeholder='At least 8 characters'
@@ -85,8 +86,8 @@ export default function SignUpForm(): JSX.Element {
                         disabled={isSignUpLoading}
                     >
                         Confirm Password
-                    </Input>
-                    <Checkbox nameId='terms' checkboxContainerClasses='my-6'>
+                    </FormInput>
+                    <FormCheckbox nameId='terms' checkboxContainerClasses='my-6'>
                         <FormLink 
                             href='#' 
                             question='I agree to the' 
@@ -94,7 +95,7 @@ export default function SignUpForm(): JSX.Element {
                         >
                             Terms and Conditions
                         </FormLink>
-                    </Checkbox>
+                    </FormCheckbox>
                 </FormWraper>
                 <SubmitBtn isLoading={isSignUpLoading}>Create Account</SubmitBtn>
             </FormWraper>

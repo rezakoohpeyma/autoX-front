@@ -1,5 +1,5 @@
 // import { cFetch, refreshFetch } from "@/services/cFetch";
-import { SignUpFormType, SignInFormType} from "../schema";
+import { SignUpFormType, SignInFormType } from "../schemas";
 import { $fetch } from "@/lib/api/fetch";
 import { retryOnUnauthorized } from "@/lib/api/retry-on-unauthorized";
 
