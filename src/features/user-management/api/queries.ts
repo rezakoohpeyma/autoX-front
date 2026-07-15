@@ -12,3 +12,14 @@ export async function getUsers(meta: MetaType){
         })
     )
 }
+
+export async function getRoles(meta?: MetaType){
+    return retryOnUnauthorized(() => 
+        $fetch('/api/roles', {
+            method: "GET",
+            query: {
+                ...meta
+            }
+        })
+    )
+}
