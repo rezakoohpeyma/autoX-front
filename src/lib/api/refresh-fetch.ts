@@ -1,5 +1,5 @@
 import { createFetch } from "@better-fetch/fetch";
-import { env } from "process";
+import { env } from "@/config/env";
 import { tokenManager } from "./auth/token-manager";
 import { schema } from "./schema";
 

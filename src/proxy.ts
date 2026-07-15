@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { TOKEN } from "@/features/auth/lib/token";
+import { REFRESH_TOKEN, TOKEN } from "@/features/auth/lib/token";
 import { routes } from "@/config/routes";
 
 export default function proxy(request: NextRequest) {
   const token = request.cookies.get(TOKEN)?.value;
+  const refresh_token = request.cookies.get(REFRESH_TOKEN)?.value;
   const { pathname } = request.nextUrl;
-  const isAuthenticated = !!token;
+  const isAuthenticated = !!token || !!refresh_token;
   const isAuthPage = pathname.startsWith("/sign") || pathname === '/sign-in' || pathname === '/sign-up';
   if (isAuthPage)
     if (isAuthenticated) {
