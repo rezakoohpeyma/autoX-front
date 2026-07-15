@@ -1,5 +1,8 @@
 import z from "zod";
 
+export const firstNameSchema = z.string().min(2, 'First Name must be more than 2 characters');
+export const lastNameSchema = z.string().min(2, 'Last Name must be more than 2 characters');
+
 export const passwordSchema = z
     .string()
     .min(8, "Password must be at least 8 characters long")

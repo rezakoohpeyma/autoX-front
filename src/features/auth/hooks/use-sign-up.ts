@@ -2,7 +2,7 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { signUp as signUpApi } from "../api/mutations";
-import { SignUpFormType } from "../schema";
+import { SignUpFormType } from "../schemas";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
 import { toast } from "react-toastify";

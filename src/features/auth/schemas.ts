@@ -1,5 +1,6 @@
-import { phoneNumberSchema, rolesSchema, permissionsSchema, passwordSchema, rolesNameSchema } from '@/schemas'
+import { phoneNumberSchema, permissionsSchema, passwordSchema, rolesNameSchema, firstNameSchema, lastNameSchema } from '@/schemas'
 import { z } from 'zod'
+
 // Form Schemas
 
 export const signInFormSchema = z.object({
@@ -8,8 +9,8 @@ export const signInFormSchema = z.object({
 })
 
 export const signUpFormSchema = z.object({
-    firstName: z.string().min(2, 'First Name must be more than 2 characters'),
-    lastName: z.string().min(2, 'Last Name must be more than 2 characters'),
+    firstName: firstNameSchema,
+    lastName: lastNameSchema,
     phoneNumber: phoneNumberSchema,
     email: z.email(),
     password: passwordSchema,
@@ -28,8 +29,8 @@ export const resetPasswordFormSchema = z.object({
 // Api Schemas (input, output)
 
 export const apiSignUpInputSchema = z.object({
-    firstName: z.string().min(2, 'First Name must be more than 2 characters'),
-    lastName: z.string().min(2, 'Last Name must be more than 2 characters'),
+    firstName: firstNameSchema,
+    lastName: lastNameSchema,
     phoneNumber: phoneNumberSchema,
     email: z.email(),
     password: passwordSchema,

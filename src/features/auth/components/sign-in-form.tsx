@@ -7,7 +7,7 @@ import Social from './social';
 import useSignIn from '../hooks/use-sign-in';
 import { JSX } from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import { signInFormSchema, SignInFormType } from '../schema';
+import { signInFormSchema, SignInFormType } from '../schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormTitle } from '@/components/ui/form/components/form-tiitle';
 import { FormWraper } from '@/components/ui/form/components/form-wraper';

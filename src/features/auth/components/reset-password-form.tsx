@@ -5,7 +5,7 @@ import Copyright from '@/components/ui/copyright';
 import { JSX } from 'react';
 import { FormWraper } from '@/components/ui/form/components/form-wraper';
 import { FormInput } from '@/components/ui/form/components/form-input';
-import { resetPasswordFormSchema, ResetPasswordType } from '../schema';
+import { resetPasswordFormSchema, ResetPasswordType } from '../schemas';
 import { SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormLink } from '@/components/ui/form/components/form-link';

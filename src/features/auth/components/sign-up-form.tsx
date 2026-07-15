@@ -5,7 +5,7 @@ import Social from './social';
 import Divider from './ui/divider';
 import { JSX } from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import { signUpFormSchema, SignUpFormType } from '../schema';
+import { signUpFormSchema, SignUpFormType } from '../schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormWraper } from '@/components/ui/form/components/form-wraper';
 import { FormTitle } from '@/components/ui/form/components/form-tiitle';

@@ -3,7 +3,7 @@ import {
     signInFormSchema,
     
     apiSignUpInputSchema 
-} from "../schema";
+} from "../schemas";
 
 import { userSchema, baseResponseSchema, tokenSchema,  } from "@/schemas";
 
