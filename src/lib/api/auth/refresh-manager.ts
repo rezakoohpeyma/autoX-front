@@ -12,7 +12,7 @@ export async function refreshTokenOnce(): Promise<boolean> {
 
     refreshPromise = (async () => {
         try{
-            const res = await refreshFetch('/api/auth/refresh', {
+            const res = await refreshFetch('@post/api/auth/refresh', {
                 method: "POST"
             });
 
