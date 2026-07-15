@@ -7,6 +7,7 @@ import { useFormStyleContext } from "../hooks/use-form-style-context";
 type FormSelectProps<TForm> = ComponentProps<"select"> & {
   nameId: Path<TForm>;
   dataArray: DataArrayType[];
+  transformValue?: (value: string) => unknown;
 }
 
 interface DataArrayType {
@@ -20,6 +21,7 @@ export function FormSelect<TForm extends FieldValues>({
   nameId,
   required = false,
   className = "",
+  transformValue,
   children,
 } : FormSelectProps<TForm>) {
   const selectId = useId();
@@ -40,7 +42,13 @@ export function FormSelect<TForm extends FieldValues>({
       <select
         id={selectId}
         className={cn(`outline-0 border-0 w-full h-full cursor-pointer ${inputBoxClasses}`, className)}
-        {...register?.(nameId, { required: required && requiredMessage })}
+        {...register?.(
+            nameId,
+            {
+              required: required && requiredMessage,
+              setValueAs: transformValue
+            },
+          )}
       >
         {dataArray.map((data, i) => (
           <option value={data.value} key={i}>
