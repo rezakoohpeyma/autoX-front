@@ -2,6 +2,8 @@ import z from "zod";
 
 export const firstNameSchema = z.string().min(2, 'First Name must be more than 2 characters');
 export const lastNameSchema = z.string().min(2, 'Last Name must be more than 2 characters');
+export const roleNameSchema = z.string().min(2, 'Role name must be more than 2 characters');
+export const roleDescriptionSchema = z.string().min(2, 'Role description must be more than 2 characters');
 
 export const passwordSchema = z
     .string()
@@ -19,7 +21,7 @@ export const phoneNumberSchema = z
     .regex(/^09\d{9}$/, "Mobile number is not valid (must start with 09 and be 11 digits)");
 ;
 
-export const permissionsSchema = z.array(z.string())
+export const permissionsNameSchema = z.array(z.string())
 
 export const rolesNameSchema = z.array(z.object({
     name: z.string()
@@ -59,11 +61,21 @@ export const rolesSchema = z.object({
     createdAt: z.string(),
     updatedAt: z.string(),
 });
+
+export const permissionSchema = z.object({
+    id: z.number(),
+    action: z.string(),
+    subject: z.string(),
+    description: z.string(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+});
+
 // Types
 
 // Reusable Types
 export type RoleType = z.infer<typeof rolesSchema>;
 export type UserType = z.infer<typeof userSchema>;
-export type PermissionsType = z.infer<typeof permissionsSchema>;
-export type RolesType = z.infer<typeof rolesSchema>;
+export type PermissionType = z.infer<typeof permissionSchema>
+export type PermissionsNameType = z.infer<typeof permissionsNameSchema>;
 export type DeleteAtType = z.infer<typeof deleteAtSchema>;
