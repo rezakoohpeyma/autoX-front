@@ -1,25 +1,26 @@
 'use client'
+import useGetPermissions from '@/features/user-management/hooks/use-get-permission';
 import DataTableToolbar from '@/components/data-table/data-table-toolbar';
 import DataTableRefreshButton from '@/components/data-table/data-table-refresh-button';
 import DataTableWraper from '@/components/data-table/data-table-wraper';
 import PermissionsExportButton from './permissions-export-button';
-import useGetPermissions from '@/features/user-management/hooks/use-get-permission';
 import { JSX } from 'react';
 import { useQueryState } from 'nuqs';
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { permissionsColumns } from './permissions-columns';
 import { DataTable } from '@/components/data-table';
 import { useQueryClient } from '@tanstack/react-query';
-import { USERS_KEY } from '@/constants/query-keys';
+import { LIMIT_PAGE_KEY, PAGE_KEY, PERMISSIONS_KEY } from '@/constants/query-keys';
+import { formatPagination } from '@/features/user-management/lib/pagination';
 
 export default function PermissionsTable(): JSX.Element {
 
     const queryClient = useQueryClient();
 
-    const [page, setPage]  = useQueryState('page', {
+    const [page, setPage]  = useQueryState(PAGE_KEY, {
         defaultValue: '1'
     })
-    const [limit, setLimit]  = useQueryState('limit', {
+    const [limit, setLimit]  = useQueryState(LIMIT_PAGE_KEY, {
         defaultValue: '10'
     })
 
@@ -37,17 +38,10 @@ export default function PermissionsTable(): JSX.Element {
     })
 
     const handleRefresh = () => queryClient.invalidateQueries({
-        queryKey: [USERS_KEY],
+        queryKey: [PERMISSIONS_KEY],
     })
 
-    const pagination = {
-        page: (meta?.page ?? 1) - 1 ,
-        limit: meta?.limit ?? 10,
-        totalItems: meta?.totalItems ?? 0,
-        totalPages: meta?.totalPages ?? 0,
-        hasNextPage: meta?.hasNextPage ?? false,
-        hasPreviousPage: meta?.hasPreviousPage ?? false,
-    }
+    const pagination = formatPagination(meta);
 
     const table = useReactTable({
         data: permissions ?? [],
