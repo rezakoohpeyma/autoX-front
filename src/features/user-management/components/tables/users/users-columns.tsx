@@ -1,11 +1,11 @@
 "use client"
+
+import UsersRowActions from "./users-row-actions";
 import { UserType } from "@/schemas";
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox }  from "@/components/ui/checkbox";
 import { formatDateTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { LuDot } from "react-icons/lu";
-import UsersRowActions from "./users-row-actions";
 export const usersColumns: ColumnDef<UserType>[] = [
   {
     id: "select",

@@ -44,6 +44,8 @@ export default function CreateUserForm(): JSX.Element {
         <CreateForm<CreateUserFormType> 
             formOpt={formOpt} 
             onSubmit={handleSubmit} 
+            inputFieldClasses='min-w-70 max-w-1/3'
+            className='w-11/12 max-w-200'
         >
             <FormTitle className='text-lg mb-6.75'>Personal Information</FormTitle>
                 <FormWraper className='flex justify-between  flex-wrap'>

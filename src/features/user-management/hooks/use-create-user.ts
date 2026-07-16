@@ -16,6 +16,9 @@ export default function useCreateUser() {
         onSuccess(user){
             toast.success(`${user.data.firstName} account was created successfully.`)
             router.push(routes.userManagementUsers)
+        },
+        onError(error){
+            toast.error(error.message)
         }
     })
 
