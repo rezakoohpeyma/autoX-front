@@ -9,7 +9,7 @@ type UseGetPermissionsProps = {
 
 export default function useGetPermissions(queries?: UseGetPermissionsProps) {
     const { data, isLoading } = useQuery({
-        queryKey: [PERMISSIONS_KEY],
+        queryKey: [PERMISSIONS_KEY, queries],
         queryFn: () => getPermissions(queries)
     })
     return {
