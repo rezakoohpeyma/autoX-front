@@ -3,7 +3,7 @@ import { baseResponseSchema, permissionSchema, permissionsNameSchema, rolesSchem
 import { apiChangeStatusInputSchema, createRoleFormSchema, createUserFormSchema, metaSchemas } from "../schemas";
 
 export const userManagementRoutes = {
-    '/api/users': {
+    '@get/api/users': {
         output: baseResponseSchema.extend({
             data: z.array(userSchema),
             meta: metaSchemas,
@@ -25,7 +25,7 @@ export const userManagementRoutes = {
             })
         })
     },
-    "/api/roles": {
+    "@get/api/roles": {
         output: baseResponseSchema.extend({
             data: z.array(rolesSchema),
             meta: metaSchemas,
