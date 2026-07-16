@@ -5,6 +5,8 @@ import { useFormStyleContext } from '../../hooks/use-form-style-context';
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { Checkbox } from '../../../checkbox';
+import { Badge } from '@/components/ui/badge';
+import { LuCircleMinus } from 'react-icons/lu';
 
 type MultiSelectProps<
   TForm extends FieldValues,
@@ -15,7 +17,7 @@ type MultiSelectProps<
   options: TOption[];
   defaultTxt?: string;
   getOptionValue(option: TOption): TValue;
-  disabled: boolean;
+  disabled?: boolean;
   getOptionLabel(option: TOption): React.ReactNode;
 } & ComponentProps<"div">;
 
@@ -63,22 +65,46 @@ export default function MultiSelect<TForm extends FieldValues, TOptions, TValue 
 
                         field.onChange(newValues);
                     };
+
+                    const removeValue = (value: TValue) => {
+                        field.onChange(
+                            selectedValues.filter(item => item !== value)
+                        );
+                    };
                     
                     return (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <input 
-                                    type='button' 
-                                    id={selectId} 
+                                <div
                                     className={
                                         cn(
-                                            'text-left px-4 cursor-pointer',
+                                            'text-left px-4 cursor-pointer flex items-center gap-2 overflow-x-scroll',
                                             inputBoxClasses
                                         )
                                     }
-                                    disabled={disabled}
-                                    defaultValue={defaultTxt}
-                                />
+                                    onClick={(e) => disabled && e.preventDefault()}
+                                >
+                                    {selectedValues.length > 0 
+                                        ?   options.map((option, i) => 
+                                                selectedValues.includes(getOptionValue(option)) &&
+                                                <Badge 
+                                                    key={i}
+                                                    className="text-[12px]! px-2 py-1 h-6 border-primary! text-primary transition-all duration-300 hover:bg-primary hover:text-white"
+                                                    variant={'outline'} 
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        removeValue(getOptionValue(option))
+
+                                                    }}
+                                                    onPointerDown={(e) => e.stopPropagation()}
+                                                >
+                                                    <span><LuCircleMinus/></span>
+                                                    <span className='capitalize'>{getOptionLabel(option)}</span>
+                                                </Badge>
+                                            )
+                                        :   defaultTxt
+                                }
+                                </div>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuGroup>

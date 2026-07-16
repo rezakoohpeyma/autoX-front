@@ -1,10 +1,4 @@
-import {
-    apiGetMeOutputSchema,
-    signInFormSchema,
-    
-    apiSignUpInputSchema 
-} from "../schemas";
-
+import { apiGetMeOutputSchema, signInFormSchema, apiSignUpInputSchema } from "../schemas";
 import { userSchema, baseResponseSchema, tokenSchema,  } from "@/schemas";
 
 export const authRoutes = {

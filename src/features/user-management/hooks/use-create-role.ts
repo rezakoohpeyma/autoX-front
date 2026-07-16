@@ -1,21 +1,21 @@
 'use client';
 
-import { CREATE_USER_KEY } from "@/constants/query-keys";
+import { CREATE_ROLE_KEY } from "@/constants/query-keys";
 import { useMutation } from "@tanstack/react-query";
-import { createNewUser as createNewUserApi } from "../api/mutations";
+import { createNewRole as createNewRoleApi } from "../api/mutations";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { routes } from "@/config/routes";
 
-export default function useCreateUser() {
+export default function useCreateRole() {
     const router = useRouter()
 
     const { mutate , isPending } = useMutation({
-        mutationKey: [CREATE_USER_KEY],
-        mutationFn: createNewUserApi,
+        mutationKey: [CREATE_ROLE_KEY],
+        mutationFn: createNewRoleApi,
         onSuccess(user){
-            toast.success(`${user.data.firstName} account was created successfully.`)
-            router.push(routes.userManagementUsers)
+            toast.success(`${user.data.name} role was created successfully.`)
+            router.push(routes.userManagementRoles)
         },
         onError(error){
             toast.error(error.message)
@@ -23,7 +23,7 @@ export default function useCreateUser() {
     })
 
     return {
-        createNewUser: mutate,
+        createNewRole: mutate,
         isCreateLoading: isPending
     }
 }

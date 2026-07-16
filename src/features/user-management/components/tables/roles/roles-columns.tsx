@@ -1,12 +1,13 @@
 "use client"
 
-import UsersRowActions from "./users-row-actions";
-import { UserType } from "@/schemas";
+import RolesRowActions from "./roles-row-actions";
+import { RoleType } from "@/schemas";
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox }  from "@/components/ui/checkbox";
 import { formatDateTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-export const usersColumns: ColumnDef<UserType>[] = [
+
+export const rolesColumns: ColumnDef<RoleType>[] = [
   {
     id: "select",
 
@@ -36,12 +37,12 @@ export const usersColumns: ColumnDef<UserType>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "firstName",
-    header: "First Name",
+    accessorKey: "name",
+    header: "Name",
   },
   {
-    accessorKey: "lastName",
-    header: "Last Name",
+    accessorKey: "description",
+    header: "Description",
   },
   {
     accessorKey: "createdAt",
@@ -72,7 +73,7 @@ export const usersColumns: ColumnDef<UserType>[] = [
   },
   {
     id:'actions',
-    cell: ({ row }) => <UsersRowActions user={row.original}/>
+    cell: ({ row }) => <RolesRowActions roles={row.original}/>
   }
   
 ];

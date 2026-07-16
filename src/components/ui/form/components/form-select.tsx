@@ -41,7 +41,7 @@ export function FormSelect<TForm extends FieldValues>({
       {children && <label htmlFor={selectId} className="block">{children}</label>}
       <select
         id={selectId}
-        className={cn(`outline-0 border-0 w-full h-full cursor-pointer ${inputBoxClasses}`, className)}
+        className={cn(`outline-0 px-2 border-0 w-full h-full cursor-pointer ${inputBoxClasses}`, className)}
         {...register?.(
             nameId,
             {

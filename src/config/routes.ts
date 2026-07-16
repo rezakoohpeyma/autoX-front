@@ -31,6 +31,7 @@ export const routes = {
     userManagementAddUser: '/user-management/users/add',
 
     userManagementRoles: "/user-management/roles",
+    userManagementAddRoles: "/user-management/roles/add",
     userManagementPermissions: "/user-management/permissions",
 
     // Audit Log Routes
