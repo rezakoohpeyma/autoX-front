@@ -1,6 +1,6 @@
 import z from "zod";
 import { baseResponseSchema, permissionSchema, permissionsNameSchema, rolesSchema, userSchema } from "@/schemas";
-import { apiChangeStatusInputSchema, createRoleFormSchema, createUserFormSchema, metaSchemas } from "../schemas";
+import { apiChangeStatusInputSchema, roleFormSchema, userFormSchema, metaSchemas } from "../schemas";
 
 export const userManagementRoutes = {
     '@get/api/users': {
@@ -9,11 +9,24 @@ export const userManagementRoutes = {
             meta: metaSchemas,
         })
     },
+    "@get/api/users/:id": {
+        output: baseResponseSchema.extend({
+            data: userSchema
+        })
+    },
     "@post/api/users": {
-        input: createUserFormSchema,
+        input: userFormSchema,
         output: baseResponseSchema.extend({
             data: userSchema.extend({
                 permissions: permissionsNameSchema,
+            })
+        })
+    },
+    "@put/api/users/:id": {
+        input: userFormSchema,
+        output: baseResponseSchema.extend({
+            data: userSchema.extend({
+                permissions: permissionsNameSchema
             })
         })
     },
@@ -32,7 +45,7 @@ export const userManagementRoutes = {
         })
     },
     "@post/api/roles": {
-        input: createRoleFormSchema,
+        input: roleFormSchema,
         output: baseResponseSchema.extend({
             data: rolesSchema,
         })

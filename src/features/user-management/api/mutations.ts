@@ -1,6 +1,27 @@
 import { $fetch } from "@/lib/api/fetch";
 import { retryOnUnauthorized } from "@/lib/api/retry-on-unauthorized";
-import { CreateRoleFormType, CreateUserFormType } from "../schemas";
+import { RoleFormType, UserFormType } from "../schemas";
+
+export async function createNewUser(user: UserFormType){
+    return retryOnUnauthorized(() => 
+        $fetch('@post/api/users', {
+            method: "POST",
+            body: user
+        })
+    )
+}
+
+export async function editCurrentUser(user: UserFormType, userId : string){
+    return retryOnUnauthorized(() => 
+        $fetch('@put/api/users/:id', {
+            method: "PUT",
+            body: user,
+            params: {
+                id: userId   
+            }
+        })
+    )
+}
 
 export async function changeUsersStatus(userIds: number[], status: boolean){
     return retryOnUnauthorized(() => 
@@ -16,16 +37,7 @@ export async function changeUsersStatus(userIds: number[], status: boolean){
     )
 } 
 
-export async function createNewUser(user: CreateUserFormType){
-    return retryOnUnauthorized(() => 
-        $fetch('@post/api/users', {
-            method: "POST",
-            body: user
-        })
-    )
-}
-
-export async function createNewRole(role: CreateRoleFormType){
+export async function createNewRole(role: RoleFormType){
     return retryOnUnauthorized(() => 
         $fetch('@post/api/roles', {
             method: 'POST',
