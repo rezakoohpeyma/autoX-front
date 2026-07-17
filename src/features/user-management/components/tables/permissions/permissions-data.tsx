@@ -1,21 +1,19 @@
 'use client'
-import useGetUsers from '@/features/user-management/hooks/use-get-users';
+import useGetPermissions from '@/features/user-management/hooks/use-get-permission';
 import DataTableToolbar from '@/components/data-table/data-table-toolbar';
-import DataTableSearch from '@/components/data-table/data-table-search';
-import DataTableWraper from '@/components/data-table/data-table-wraper';
 import DataTableRefreshButton from '@/components/data-table/data-table-refresh-button';
-import UsersAddButton from './users-add-button';
-import UsersExportButton from './users-export-button';
+import DataTableWraper from '@/components/data-table/data-table-wraper';
+import PermissionsExportButton from './permissions-export-button';
 import { JSX } from 'react';
-import { useQueryState } from 'nuqs'
+import { useQueryState } from 'nuqs';
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { usersColumns } from './users-columns';
+import { permissionsColumns } from './permissions-columns';
 import { DataTable } from '@/components/data-table';
 import { useQueryClient } from '@tanstack/react-query';
-import { LIMIT_PAGE_KEY, PAGE_KEY, SEARCH_KEY, USERS_KEY } from '@/constants/query-keys';
+import { LIMIT_PAGE_KEY, PAGE_KEY, PERMISSIONS_KEY } from '@/constants/query-keys';
 import { formatPagination } from '@/features/user-management/lib/pagination';
 
-export default function UsersTable(): JSX.Element {
+export default function PermissionsTable(): JSX.Element {
 
     const queryClient = useQueryClient();
 
@@ -26,32 +24,28 @@ export default function UsersTable(): JSX.Element {
         defaultValue: '10'
     })
 
-    const [search] = useQueryState(SEARCH_KEY, {
-        defaultValue: ''
-    })
     const onPageChange = (page: number) => setPage(String(page))
     const onPageLimitChange = (size: number) => setLimit(String(size))
 
 
     const { 
-        users,
+        permissions,
         meta, 
-        isUsersLoading
-    } = useGetUsers({
+        isPermissionsLoading
+    } = useGetPermissions({
         page: Number(page),
         limit: Number(limit),
-        search,
     })
 
     const handleRefresh = () => queryClient.invalidateQueries({
-        queryKey: [USERS_KEY],
+        queryKey: [PERMISSIONS_KEY],
     })
 
     const pagination = formatPagination(meta);
 
     const table = useReactTable({
-        data: users ?? [],
-        columns: usersColumns,
+        data: permissions ?? [],
+        columns: permissionsColumns,
         getCoreRowModel: getCoreRowModel(),
         manualPagination: true,
         enableRowSelection: true,
@@ -62,13 +56,11 @@ export default function UsersTable(): JSX.Element {
             pagination={pagination}
             onPageChange={onPageChange}
             onPageLimitChange={onPageLimitChange}
-            loading={isUsersLoading}
+            loading={isPermissionsLoading}
         >
-            <DataTableToolbar>
-                <DataTableSearch queryKey={SEARCH_KEY} placeholder='Searching Name...'/>
+            <DataTableToolbar className='justify-end'>
                 <DataTableWraper className='gap-2'>
-                    <UsersExportButton />
-                    <UsersAddButton />
+                    <PermissionsExportButton />
                     <DataTableRefreshButton onRefresh={handleRefresh} />
                 </DataTableWraper>
             </DataTableToolbar>

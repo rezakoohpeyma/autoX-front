@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { JSX, ReactNode } from 'react';
 import { FieldValues, SubmitHandler, UseFormProps } from 'react-hook-form';
 
-type CreateFormProps<TForm extends FieldValues> = {
+type UserManagementFormProps<TForm extends FieldValues> = {
     children: ReactNode;
     formOpt: UseFormProps<TForm>;
     onSubmit: SubmitHandler<TForm>;
@@ -13,7 +13,7 @@ type CreateFormProps<TForm extends FieldValues> = {
     inputErrorClasses?: string;
 };
 
-export default function CreateForm<TForm extends FieldValues>({
+export default function UserManagementForm<TForm extends FieldValues>({
         children,
         formOpt,
         onSubmit,
@@ -21,7 +21,7 @@ export default function CreateForm<TForm extends FieldValues>({
         inputFieldClasses,
         inputBoxClasses,
         inputErrorClasses
-    }: CreateFormProps<TForm>):
+    }: UserManagementFormProps<TForm>):
     JSX.Element {
 
     const safeOnSubmit = onSubmit as SubmitHandler<FieldValues>;

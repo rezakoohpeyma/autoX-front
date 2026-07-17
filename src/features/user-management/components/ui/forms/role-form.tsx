@@ -1,31 +1,34 @@
 'use client';
-import { JSX } from 'react';
-import CreateForm from './ui/create-form';
+import useGetPermissions from '@/features/user-management/hooks/use-get-permission';
 import MultiSelect from '@/components/ui/form/components/multi-select';
-import SubmitBtn from './ui/submit-btn';
-import useCreateRole from '../hooks/use-create-role';
-import useGetPermissions from '../hooks/use-get-permission';
+import UserManagementForm from './user-management-form';
+import SubmitBtn from '../submit-btn';
+import { JSX, ReactNode } from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import { createRoleFormSchema, CreateRoleFormType } from '../schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormTitle } from '@/components/ui/form/components/form-tiitle';
 import { FormWraper } from '@/components/ui/form/components/form-wraper';
 import { FormInput } from '@/components/ui/form/components/form-input';
 import { PermissionType } from '@/schemas';
+import { roleFormSchema, RoleFormType } from '@/features/user-management/schemas';
 
-export default function CreateRoleForm(): JSX.Element {
+interface RoleFormProps {
+    onSubmit: SubmitHandler<RoleFormType>;
+    defautlValues?: RoleFormType;
+    submitContent: ReactNode;
+    loading: boolean;
+}
+
+export default function RoleForm({ onSubmit, defautlValues, submitContent, loading } : RoleFormProps): JSX.Element {
     const { permissions } = useGetPermissions();
-    const { createNewRole, isCreateLoading } = useCreateRole()
-    const handleSubmit : SubmitHandler<CreateRoleFormType> = (role) => {
-        createNewRole(role)
-    }
     const formOpt = {
-        resolver: zodResolver(createRoleFormSchema),
+        resolver: zodResolver(roleFormSchema),
+        defautlValues,
     }
 
     return (
-        <CreateForm 
-            onSubmit={handleSubmit} 
+        <UserManagementForm 
+            onSubmit={onSubmit} 
             formOpt={formOpt}
             className='w-fit'
             inputFieldClasses='w-full sm:w-70 max-w-80'
@@ -34,32 +37,32 @@ export default function CreateRoleForm(): JSX.Element {
             <FormWraper className='w-full'>
                 <FormInput 
                     nameId="name"
-                    disabled={isCreateLoading}
+                    disabled={loading}
                 >
                     Name
                 </FormInput>
                 <FormInput 
                     nameId='description'
-                    disabled={isCreateLoading}
+                    disabled={loading}
                 >
                     Description
                 </FormInput>
-                <MultiSelect<CreateRoleFormType, PermissionType, number> 
+                <MultiSelect<RoleFormType, PermissionType, number> 
                     nameId='permissionIds'
                     options={permissions ?? []}
                     getOptionLabel={(permission) => `${permission.subject}-${permission.action}`}
                     getOptionValue={(permission) => permission.id}
                     defaultTxt='Select Permission'
-                    disabled={isCreateLoading}
+                    disabled={loading}
 
                 >
                     Permissions
                 </MultiSelect>
             </FormWraper>
-            <SubmitBtn className='w-full' loading={isCreateLoading}>
-                Create Role
+            <SubmitBtn className='w-full' loading={loading}>
+                {submitContent}
             </SubmitBtn>
-        </CreateForm>
+        </UserManagementForm>
     )
 }
 

@@ -1,9 +1,10 @@
 'use client'
 import DataTableRowActions from '@/components/data-table/data-table-row-actions';
-import { JSX, useMemo } from 'react';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { LuBookUser, LuCircleCheck, LuCircleOff, LuMenu, LuSquarePen } from 'react-icons/lu';
+import { Fragment, JSX, useMemo } from 'react';
+import { DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { LuBookUser, LuCircleCheck, LuCircleOff, LuMenu, LuSquarePen, LuTrash2 } from 'react-icons/lu';
 import { RoleType } from '@/schemas';
+import { cn } from '@/lib/utils';
 
 interface RolesRowActionsProps {
     roles: RoleType,
@@ -15,12 +16,12 @@ export default function RolesRowActions({ roles } : RolesRowActionsProps): JSX.E
     [
         {
             id: 0,
-            label: 'Edit User',
+            label: 'Edit Role',
             icon: <LuSquarePen />,
         },
         {
             id: 1,
-            label: 'User detail',
+            label: 'Role detail',
             icon: <LuBookUser />,
         },
         {
@@ -33,16 +34,36 @@ export default function RolesRowActions({ roles } : RolesRowActionsProps): JSX.E
             label: roles.isActive ? 'Disable' : 'Enable',
             icon: roles.isActive ? <LuCircleOff /> : <LuCircleCheck />
         },
+        {
+            id: 4,
+            label: "Delete Role",
+            icon: <LuTrash2 />,
+            separator: true,
+            className: 'text-red-400',
+            onClick: () => {}
+                    
+        }
     ]
     , [ roles.isActive ])
 
     return (
         <DataTableRowActions>
             {menuDatas.map(item => (
-                <DropdownMenuItem key={item.id} className='cursor-pointer'>
-                    <span>{item.icon}</span>
-                    <span>{item.label}</span>
-                </DropdownMenuItem>
+                <Fragment key={item.id}>
+                    {item.separator && <DropdownMenuSeparator />}
+                    <DropdownMenuItem 
+                        className={
+                            cn(
+                                'cursor-pointer',
+                                item.className
+                            )
+                        } 
+                        onClick={item?.onClick}
+                    >
+                        <span>{item.icon}</span>
+                        <span>{item.label}</span>
+                    </DropdownMenuItem>
+                </Fragment>
             ))}
         </DataTableRowActions>
     )

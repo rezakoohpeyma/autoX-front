@@ -10,6 +10,16 @@ export async function getUsers(meta: MetaType){
     )
 }
 
+export async function getCurrentUser(userId: string){
+    return retryOnUnauthorized(() => 
+        $fetch('@get/api/users/:id' , {
+            params: {
+                id: userId
+            }
+        })
+    )
+}
+
 export async function getRoles(meta?: MetaType){
     return retryOnUnauthorized(() => 
         $fetch('@get/api/roles', {

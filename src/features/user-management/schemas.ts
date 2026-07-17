@@ -1,5 +1,5 @@
-import { firstNameSchema, lastNameSchema, passwordSchema, permissionsNameSchema, phoneNumberSchema, roleDescriptionSchema, roleNameSchema } from "@/schemas";
 import z from "zod";
+import { firstNameSchema, lastNameSchema, passwordSchema, phoneNumberSchema, roleDescriptionSchema, roleNameSchema } from "@/schemas";
 
 export const metaSchemas = z.object({
     page: z.number(),
@@ -12,7 +12,7 @@ export const metaSchemas = z.object({
 
 // Form Schemas
 
-export const createUserFormSchema = z.object({
+export const userFormSchema = z.object({
     firstName: firstNameSchema,
     lastName: lastNameSchema,
     phoneNumber: phoneNumberSchema,
@@ -22,7 +22,7 @@ export const createUserFormSchema = z.object({
     password: passwordSchema,
 })
 
-export const createRoleFormSchema= z.object({
+export const roleFormSchema= z.object({
     name: roleNameSchema,
     description: roleDescriptionSchema,
     permissionIds: z.array(z.number()),
@@ -37,7 +37,7 @@ export const apiChangeStatusInputSchema = z.object({
 
 // Types
 
-export type CreateUserFormType = z.infer<typeof createUserFormSchema>
-export type CreateRoleFormType = z.infer<typeof createRoleFormSchema>
+export type UserFormType = z.infer<typeof userFormSchema>
+export type RoleFormType = z.infer<typeof roleFormSchema>
 export type MetaType = z.infer<typeof metaSchemas>;
 export type ApiChangeStatusInputType = z.infer<typeof apiChangeStatusInputSchema>

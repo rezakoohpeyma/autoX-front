@@ -1,20 +1,18 @@
 'use client';
 
-import Form from '@/components/ui/form';
-import SubmitBtn from './ui/submit-btn';
-import useGetRoles from '../hooks/use-get-roles';
 import MultiSelect from '@/components/ui/form/components/multi-select';
-import { JSX } from 'react';
+import useGetRoles from '@/features/user-management/hooks/use-get-roles';
+import UserManagementForm from './user-management-form';
+import SubmitBtn from '../submit-btn';
+import { JSX, ReactNode } from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import { createUserFormSchema, CreateUserFormType } from '../schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormTitle } from '@/components/ui/form/components/form-tiitle';
 import { FormWraper } from '@/components/ui/form/components/form-wraper';
 import { FormInput } from '@/components/ui/form/components/form-input';
 import { FormSelect } from '@/components/ui/form/components/form-select';
 import { RoleType } from '@/schemas';
-import useCreateUser from '../hooks/use-create-user';
-import CreateForm from './ui/create-form';
+import { userFormSchema, UserFormType } from '@/features/user-management/schemas';
 
 const ActiveOptions = [
     {
@@ -29,21 +27,25 @@ const ActiveOptions = [
     },
 ]
 
-export default function CreateUserForm(): JSX.Element {
-    const { roles } = useGetRoles();
-    const { createNewUser, isCreateLoading } = useCreateUser()
+interface UserFormProps {
+    onSubmit: SubmitHandler<UserFormType>;
+    defaultValues?: UserFormType;
+    loading: boolean;
+    submitContent: ReactNode;
+}
 
-    const handleSubmit: SubmitHandler<CreateUserFormType> = (user) => {
-        createNewUser(user)
-    }
+export default function UserForm({ onSubmit, defaultValues, loading, submitContent } : UserFormProps): JSX.Element {
+    const { roles } = useGetRoles();
+ 
     const formOpt = {
-        resolver: zodResolver(createUserFormSchema)
+        resolver: zodResolver(userFormSchema),
+        defaultValues,
     }
 
     return (
-        <CreateForm<CreateUserFormType> 
+        <UserManagementForm<UserFormType> 
             formOpt={formOpt} 
-            onSubmit={handleSubmit} 
+            onSubmit={onSubmit} 
             inputFieldClasses='min-w-70 max-w-1/3'
             className='w-11/12 max-w-200'
         >
@@ -51,13 +53,13 @@ export default function CreateUserForm(): JSX.Element {
                 <FormWraper className='flex justify-between  flex-wrap'>
                     <FormInput 
                         nameId='firstName'
-                        disabled={isCreateLoading}
+                        disabled={loading}
                     >
                         First Name
                     </FormInput>
                     <FormInput 
                         nameId='lastName' 
-                        disabled={isCreateLoading}
+                        disabled={loading}
                     >
                         Last Name
                     </FormInput>
@@ -65,13 +67,13 @@ export default function CreateUserForm(): JSX.Element {
                 <FormWraper className='flex justify-between flex-wrap'>
                     <FormInput 
                         nameId='phoneNumber'
-                        disabled={isCreateLoading}
+                        disabled={loading}
                     >
                         Phone Number
                     </FormInput>
                     <FormInput 
                         nameId='email'
-                        disabled={isCreateLoading}
+                        disabled={loading}
                     >
                         Email
                     </FormInput>
@@ -80,7 +82,7 @@ export default function CreateUserForm(): JSX.Element {
                     <FormInput 
                         type='password' 
                         nameId='password'
-                        disabled={isCreateLoading}
+                        disabled={loading}
                     >
                         Password
                     </FormInput>
@@ -88,25 +90,25 @@ export default function CreateUserForm(): JSX.Element {
                         nameId="isActive" 
                         dataArray={ActiveOptions} 
                         transformValue={(value) => value === 'true'}
-                        disabled={isCreateLoading}
+                        disabled={loading}
                     >
                         Active
                     </FormSelect>
                 </FormWraper>
                 <FormWraper className='flex justify-between flex-wrap'>
-                    <MultiSelect<CreateUserFormType ,RoleType, number>
+                    <MultiSelect<UserFormType ,RoleType, number>
                         nameId='rolesIds'
                         options={roles ?? []}
                         getOptionValue={(role) => role.id}
                         getOptionLabel={role => role.name}
                         defaultTxt='Select Roles'
-                        disabled={isCreateLoading}
+                        disabled={loading}
                     >Roles</MultiSelect>
                 </FormWraper>
-            <SubmitBtn loading={isCreateLoading}>
-                Create User
+            <SubmitBtn loading={loading}>
+                {submitContent}
             </SubmitBtn>
-        </CreateForm>
+        </UserManagementForm>
     )
 }
 
