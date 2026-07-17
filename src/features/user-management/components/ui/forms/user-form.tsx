@@ -4,8 +4,8 @@ import MultiSelect from '@/components/ui/form/components/multi-select';
 import useGetRoles from '@/features/user-management/hooks/use-get-roles';
 import UserManagementForm from './user-management-form';
 import SubmitBtn from '../submit-btn';
-import { JSX, ReactNode, useEffect } from 'react';
-import { SubmitHandler, useFormContext } from 'react-hook-form';
+import { JSX, ReactNode } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormTitle } from '@/components/ui/form/components/form-tiitle';
 import { FormWraper } from '@/components/ui/form/components/form-wraper';
@@ -36,13 +36,7 @@ interface UserFormProps {
 
 export default function UserForm({ onSubmit, defaultValues, loading, submitContent } : UserFormProps): JSX.Element {
     const { roles } = useGetRoles();
-    // const { reset } = useFormContext<UserFormType>()
-
-    // useEffect(() => {
-    //     if(!loading && defaultValues) 
-    //         reset(defaultValues)
-    // }, [loading, defaultValues, reset])
-
+ 
     const formOpt = {
         resolver: zodResolver(userFormSchema),
         defaultValues,
