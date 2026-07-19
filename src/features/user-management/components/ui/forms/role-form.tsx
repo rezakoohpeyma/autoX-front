@@ -14,16 +14,16 @@ import { roleFormSchema, RoleFormType } from '@/features/user-management/schemas
 
 interface RoleFormProps {
     onSubmit: SubmitHandler<RoleFormType>;
-    defautlValues?: RoleFormType;
+    defaultValues?: RoleFormType;
     submitContent: ReactNode;
     loading: boolean;
 }
 
-export default function RoleForm({ onSubmit, defautlValues, submitContent, loading } : RoleFormProps): JSX.Element {
+export default function RoleForm({ onSubmit, defaultValues, submitContent, loading } : RoleFormProps): JSX.Element {
     const { permissions } = useGetPermissions();
     const formOpt = {
         resolver: zodResolver(roleFormSchema),
-        defautlValues,
+        defaultValues,
     }
 
     return (

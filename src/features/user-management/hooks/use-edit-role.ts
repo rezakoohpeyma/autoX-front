@@ -6,7 +6,7 @@ import { RoleFormType } from "../schemas";
 import { editCurrentRole as editCurrentRoleAPi } from "../api/mutations";
 import { routes } from "@/config/routes";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function useEditRole() {
 

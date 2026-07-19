@@ -5,6 +5,8 @@ import { DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdow
 import { LuBookUser, LuCircleCheck, LuCircleOff, LuMenu, LuSquarePen, LuTrash2 } from 'react-icons/lu';
 import { RoleType } from '@/schemas';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { routes } from '@/config/routes';
 
 interface RolesRowActionsProps {
     roles: RoleType,
@@ -12,12 +14,16 @@ interface RolesRowActionsProps {
 
 export default function RolesRowActions({ roles } : RolesRowActionsProps): JSX.Element {
 
+    const router = useRouter();
     const menuDatas = useMemo(() => 
     [
         {
             id: 0,
             label: 'Edit Role',
             icon: <LuSquarePen />,
+            onClick(){
+                router.push(`${routes.userManagementEditRole}/${roles.id}`)
+            }
         },
         {
             id: 1,
