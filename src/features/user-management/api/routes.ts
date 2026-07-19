@@ -50,6 +50,19 @@ export const userManagementRoutes = {
             data: rolesSchema,
         })
     },
+    "@get/api/roles/:id": {
+        output: baseResponseSchema.extend({
+            data: rolesSchema
+        })
+    },
+    "@put/api/roles/:id": {
+        input: roleFormSchema,
+        output: baseResponseSchema.extend({
+            data: rolesSchema.extend({
+                permissions: permissionsNameSchema
+            })
+        })
+    },
     "@get/api/permissions": {
         output: baseResponseSchema.extend({
             data: z.array(permissionSchema),
