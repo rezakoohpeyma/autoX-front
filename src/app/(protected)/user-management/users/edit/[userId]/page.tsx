@@ -8,7 +8,6 @@ interface UmEditCurrentUserPageProps {
 
 export default async function UmEditCurrentUserPage({ params } : UmEditCurrentUserPageProps): Promise<JSX.Element> {
     const { userId } = await params
-    console.log(userId)
     return (
         <div>
             <PageTitle title='Edit User' description='Edit current user and assign roles and permissions'/>
