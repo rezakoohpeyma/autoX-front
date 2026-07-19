@@ -28,7 +28,7 @@ export async function getRoles(meta?: MetaType){
     )
 }
 
-export async function getCurrentRoles(userId: string){
+export async function getCurrentRole(userId: string){
     return retryOnUnauthorized(() => 
         $fetch('@get/api/roles/:id', {
             params: {
