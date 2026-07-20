@@ -10,8 +10,9 @@ import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { permissionsColumns } from './permissions-columns';
 import { DataTable } from '@/components/data-table';
 import { useQueryClient } from '@tanstack/react-query';
-import { LIMIT_PAGE_KEY, PAGE_KEY, PERMISSIONS_KEY } from '@/constants/query-keys';
+import { LIMIT_PAGE_KEY, PAGE_KEY, PERMISSIONS_KEY, SEARCH_KEY } from '@/constants/query-keys';
 import { formatPagination } from '@/features/user-management/lib/pagination';
+import DataTableSearch from '@/components/data-table/data-table-search';
 
 export default function PermissionsTable(): JSX.Element {
 
@@ -22,6 +23,9 @@ export default function PermissionsTable(): JSX.Element {
     })
     const [limit, setLimit]  = useQueryState(LIMIT_PAGE_KEY, {
         defaultValue: '10'
+    })
+    const [search, setSerach] = useQueryState(SEARCH_KEY, {
+        defaultValue: "",
     })
 
     const onPageChange = (page: number) => setPage(String(page))
@@ -35,6 +39,7 @@ export default function PermissionsTable(): JSX.Element {
     } = useGetPermissions({
         page: Number(page),
         limit: Number(limit),
+        search,
     })
 
     const handleRefresh = () => queryClient.invalidateQueries({
@@ -58,7 +63,8 @@ export default function PermissionsTable(): JSX.Element {
             onPageLimitChange={onPageLimitChange}
             loading={isPermissionsLoading}
         >
-            <DataTableToolbar className='justify-end'>
+            <DataTableToolbar>
+                <DataTableSearch queryKey={SEARCH_KEY} placeholder='Searching permission...'/>
                 <DataTableWraper className='gap-2'>
                     <PermissionsExportButton />
                     <DataTableRefreshButton onRefresh={handleRefresh} />
