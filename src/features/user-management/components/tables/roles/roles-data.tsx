@@ -21,14 +21,13 @@ export default function RolesTable(): JSX.Element {
 
     const [page, setPage]  = useQueryState(PAGE_KEY, {
         defaultValue: '1'
-    })
+    });
     const [limit, setLimit]  = useQueryState(LIMIT_PAGE_KEY, {
         defaultValue: '10'
-    })
-
+    });
     const [search] = useQueryState(SEARCH_KEY, {
         defaultValue: ''
-    })
+    });
     const onPageChange = (page: number) => setPage(String(page))
     const onPageLimitChange = (size: number) => setLimit(String(size))
 
@@ -65,7 +64,7 @@ export default function RolesTable(): JSX.Element {
             loading={isRolesLoading}
         >
             <DataTableToolbar>
-                <DataTableSearch queryKey={SEARCH_KEY} placeholder='Searching Name...'/>
+                <DataTableSearch queryKey={SEARCH_KEY} placeholder='Searching Roles...'/>
                 <DataTableWraper className='gap-2'>
                     <RolesExportButton />
                     <RolesAddButton />
