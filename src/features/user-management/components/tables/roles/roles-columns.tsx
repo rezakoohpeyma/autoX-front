@@ -13,7 +13,7 @@ export const rolesColumns: ColumnDef<RoleType>[] = [
 
     header: ({ table }) => (
       <Checkbox
-        className="border-primary/80 bg-white"
+        className="border-primary/80 bg-white cursor-pointer"
         checked={
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
@@ -27,6 +27,7 @@ export const rolesColumns: ColumnDef<RoleType>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
+        className="cursor-pointer"
         onCheckedChange={(value) =>
           row.toggleSelected(!!value)
         }

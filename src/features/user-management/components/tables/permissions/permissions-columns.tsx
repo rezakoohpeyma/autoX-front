@@ -11,7 +11,7 @@ export const permissionsColumns: ColumnDef<PermissionType>[] = [
 
     header: ({ table }) => (
       <Checkbox
-        className="border-primary/80 bg-white"
+        className="border-primary/80 bg-white cursor-pointer"
         checked={
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
@@ -25,6 +25,7 @@ export const permissionsColumns: ColumnDef<PermissionType>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
+        className="cursor-pointer"
         onCheckedChange={(value) =>
           row.toggleSelected(!!value)
         }

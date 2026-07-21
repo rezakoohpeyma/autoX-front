@@ -12,7 +12,7 @@ export const usersColumns: ColumnDef<UserType>[] = [
 
     header: ({ table }) => (
       <Checkbox
-        className="border-primary/80 bg-white"
+        className="border-primary/80 bg-white cursor-pointer"
         checked={
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
@@ -26,6 +26,7 @@ export const usersColumns: ColumnDef<UserType>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
+        className="cursor-pointer"
         onCheckedChange={(value) =>
           row.toggleSelected(!!value)
         }
