@@ -48,7 +48,7 @@ export default function UsersRowActions({ user } : UsesrRowActionsProps): JSX.El
             
         }
     ]
-    , [user.isActive, user.id, changeUsersStatus])
+    , [user.isActive, user.id, changeUsersStatus, router])
 
     return (
         <DataTableRowActions>

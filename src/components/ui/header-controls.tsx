@@ -1,56 +1,43 @@
+'use client';
 
-import { JSX, ReactNode, useMemo } from 'react';
+import { JSX, useState } from 'react';
 import { FaGear, FaIdCard, FaRightFromBracket, FaUser } from 'react-icons/fa6';
-import HeaderControlItem from './header-control-item';
-import useLogout from '@/features/auth/hooks/use-logout';
-
-export type MenuItem = {
-  label?: string
-  icon?: ReactNode,
-  href?: string
-  onClick?: () => void
-  separator?: boolean
-}
-
-export type Menus = {
-  trigger: ReactNode
-  label?: string
-  items: MenuItem[]
-}
-
+import HeaderMenu from './header-menu';
+import { DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
+import LogoutDialog from './logout-dialog';
 
 export default function HeaderControls(): JSX.Element {
-    const { logout } = useLogout()
-    const menus: Menus[] = useMemo(() => [
-    {
-        trigger: <FaUser />,
-        label: "User",
-        items: [
-            {
-                label: "Show Detail",
-                icon: <FaIdCard />,
-                href:'#'
-                
-            },
-            { separator: true },
-            {
-                label: "Log out",
-                icon: <FaRightFromBracket />,
-                onClick: logout
-            },
-        ]
+    const [openLogoutDialog, setOpenLogoutDialog] = useState<boolean>(false);
+    const handleOpenLogoutDialog = (e: Event) => {
+        e.preventDefault()
+        setOpenLogoutDialog(true);
     }
-], [logout])
 
     return (
         <div className='flex justify-center items-center gap-3 text-[#A6ADBF] text-base'>
-            {menus.map((menu, i) => 
-                <HeaderControlItem label={menu.label} trigger={menu.trigger}  items={menu.items} key={i}/>
-            )}
+            <HeaderMenu trigger={<FaUser />} label='User'>
+                <DropdownMenuItem>
+                    <p className="flex justify-center items-center gap-1 text-black/60 cursor-pointer">
+                        <span>
+                            <FaIdCard />
+                        </span>
+                        <span>Show Detail</span>
+                    </p>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={handleOpenLogoutDialog}>
+                    <p className="flex justify-center items-center gap-1 text-black/60 cursor-pointer">
+                        <span>
+                            <FaRightFromBracket />
+                        </span>
+                        <span>Logout</span>
+                    </p>
+                </DropdownMenuItem>
+            </HeaderMenu>
+            <LogoutDialog open={openLogoutDialog} setOpenLogoutDialog={setOpenLogoutDialog}/>
             <button className='cursor-pointer'>
                 <FaGear />
             </button>
         </div>
     )
 }
-

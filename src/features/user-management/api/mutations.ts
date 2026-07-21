@@ -45,3 +45,15 @@ export async function createNewRole(role: RoleFormType){
         })
     )
 }
+
+export async function editCurrentRole(role: RoleFormType, userId: string){
+    return retryOnUnauthorized(() => 
+        $fetch('@put/api/roles/:id', {
+            method: "PUT",
+            body: role,
+            params: {
+                id: userId
+            }
+        })
+    )
+}
