@@ -14,6 +14,7 @@ import { DataTable } from '@/components/data-table';
 import { useQueryClient } from '@tanstack/react-query';
 import { LIMIT_PAGE_KEY, PAGE_KEY, SEARCH_KEY, USERS_KEY } from '@/constants/query-keys';
 import { formatPagination } from '@/features/user-management/lib/pagination';
+import UsersBulkActions from './users-bulk-actions';
 
 export default function UsersTable(): JSX.Element {
 
@@ -70,6 +71,7 @@ export default function UsersTable(): JSX.Element {
                     <UsersExportButton />
                     <UsersAddButton />
                     <DataTableRefreshButton onRefresh={handleRefresh} />
+                    <UsersBulkActions table={table}/>
                 </DataTableWraper>
             </DataTableToolbar>
         </DataTable>
