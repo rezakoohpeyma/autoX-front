@@ -24,7 +24,7 @@ export async function refreshTokenOnce(): Promise<boolean> {
             return true;
         } catch(error){
             if (error instanceof BetterFetchError) {
-                console.error("Refresh failed:", error.message);
+                console.warn("Refresh failed:", error.message);
             }
             return false;
         } finally{
