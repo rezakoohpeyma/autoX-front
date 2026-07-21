@@ -1,10 +1,21 @@
 'use client';
+
 import { ComponentProps, JSX, useId } from 'react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '../../../dropdown-menu'; 
+import { 
+    DropdownMenu,
+    DropdownMenuCheckboxItem,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuTrigger
+} from '../../../dropdown-menu'; 
 import { useFormStyleContext } from '../../hooks/use-form-style-context';
-import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
+import { 
+    Controller,
+    FieldValues,
+    Path, 
+    useFormContext 
+} from 'react-hook-form';
 import { cn } from '@/lib/utils';
-import { Checkbox } from '../../../checkbox';
 import { Badge } from '@/components/ui/badge';
 import { LuCircleMinus } from 'react-icons/lu';
 
@@ -21,7 +32,11 @@ type MultiSelectProps<
   getOptionLabel(option: TOption): React.ReactNode;
 } & ComponentProps<"div">;
 
-export default function MultiSelect<TForm extends FieldValues, TOptions, TValue extends string | number>({ 
+export default function MultiSelect<
+    TForm extends FieldValues, 
+    TOptions, 
+    TValue extends string | number
+>({ 
         nameId,
         children,
         defaultTxt = 'Select',
@@ -42,13 +57,9 @@ export default function MultiSelect<TForm extends FieldValues, TOptions, TValue 
     } = useFormContext<TForm>()
 
     const selectId = useId()
+
     return (
-        <div className={
-            cn(
-                '',
-                inputFieldClasses
-            )
-        }>
+        <div className={inputFieldClasses}>
             {children && <label className='block' htmlFor={selectId}>{children}</label>}
 
             <Controller 
@@ -107,26 +118,18 @@ export default function MultiSelect<TForm extends FieldValues, TOptions, TValue 
                                 </div>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
-                                <DropdownMenuGroup>
+                                <DropdownMenuGroup className='h-40'>
                                     {options.map((option, i) => 
-                                        <DropdownMenuItem 
+                                        <DropdownMenuCheckboxItem
                                             key={getOptionValue(option)} 
-                                            className='cursor-pointer!' 
-                                            onSelect={(e) => e.preventDefault()}
-                                            asChild
+                                            id={String(i)}
+                                            onSelect={(e: Event) => e.preventDefault()}
+                                            className='cursor-pointer'
+                                            checked={field.value?.includes(getOptionValue(option)) ?? false}
+                                            onCheckedChange={() => toggleValue(getOptionValue(option))}
                                         >
-                                            <label htmlFor={String(i)} className='cursor-pointer'>
-                                                <Checkbox
-                                                    id={String(i)}
-                                                    className={cn(
-                                                        "data-[state=checked]:bg-white data-[state=checked]:text-primary border-primary",
-                                                        'cursor-pointer')}
-                                                    checked={field.value?.includes(getOptionValue(option)) ?? false}
-                                                    onCheckedChange={() => toggleValue(getOptionValue(option))}
-                                                />
-                                                {getOptionLabel(option)}
-                                            </label>
-                                        </DropdownMenuItem>
+                                            {getOptionLabel(option)}
+                                        </DropdownMenuCheckboxItem>
                                     )}
                                 </DropdownMenuGroup>
                             </DropdownMenuContent>
