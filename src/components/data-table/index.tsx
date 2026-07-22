@@ -45,44 +45,50 @@ export function DataTable<TData>({
   children,
   ...other
 }: DataTableProps<TData>) {
-  
-  if(loading)
-    return (
-    <DataTableSkeleton
-      columns={table.getAllLeafColumns().length}
-      rows={pagination.limit}
-    />
-  );
 
   return (
     <div className={cn("flex justify-center flex-col gap-3", className)} {...other}>
       {children}
-      <Table className="overflow-hidden rounded-xs! bg-white border-b">
-        <DataTableColumnHeader headerGroups={table.getHeaderGroups()} />
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <DataTableEmpty colSpan={table.getAllColumns().length}/>
-          )}
-        </TableBody>
-      </Table>
-      <DataTablePagination
-          pagination={pagination}  
-          onPageChange={onPageChange}
-          onPageLimitChange={onPageLimitChange}
-      />
+
+      {/* Table Loading */}
+      {loading && 
+          <DataTableSkeleton
+            columns={table.getAllLeafColumns().length}
+            rows={pagination.limit}
+          />
+      }
+
+      {/* Table */}
+      {!loading && 
+          <>
+              <Table className="overflow-hidden rounded-xs! bg-white border-b">
+                <DataTableColumnHeader headerGroups={table.getHeaderGroups()} />
+                <TableBody>
+                  {table.getRowModel().rows?.length ? (
+                    table.getRowModel().rows.map((row) => (
+                      <TableRow
+                        key={row.id}
+                        data-state={row.getIsSelected() && "selected"}
+                      >
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))
+                  ) : (
+                    <DataTableEmpty colSpan={table.getAllColumns().length}/>
+                  )}
+                </TableBody>
+              </Table>
+              <DataTablePagination
+                  pagination={pagination}  
+                  onPageChange={onPageChange}
+                  onPageLimitChange={onPageLimitChange}
+              />
+          </>
+      }
     </div>
   )
 }

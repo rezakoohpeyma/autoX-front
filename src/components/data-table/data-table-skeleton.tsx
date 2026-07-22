@@ -21,12 +21,6 @@ export function DataTableSkeleton({
 }: DataTableSkeletonProps) {
   return (
     <div className="flex flex-col gap-3">
-      {/* Toolbar */}
-      <div className="flex justify-between items-center">
-        <Skeleton className="h-10 w-60 rounded-md" />
-        <Skeleton className="h-10 w-32 rounded-md" />
-      </div>
-
       {/* Table */}
       <Table className="overflow-hidden rounded-xs bg-white border-b">
         <TableHeader className="bg-table-header-bg">
