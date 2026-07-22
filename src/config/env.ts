@@ -1,9 +1,9 @@
-import z from "zod";
 
-const envSchema = z.object({
-    API_BASE_URL: z.string(),
-})
+interface EnvType {
+    API_BASE_URL: string | undefined,
+    SITE_URL?: string,
+}
 
-export  const env = envSchema.parse({
+export  const env: EnvType = {
     API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
-})
+}
