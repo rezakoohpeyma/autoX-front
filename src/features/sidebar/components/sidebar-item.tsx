@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/tooltip";
 import NavLink from "@/components/ui/nav-link";
 import SidebarItemChild from "./sidebar-item-child";
+import useSidebar from "../hooks/use-sidebar";
 import { SidebarItemType } from '../types/sidebar-types';
 import { JSX } from 'react';
-import { useSidebarStore } from "../store/use-sidebar-store";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
@@ -21,14 +21,14 @@ interface SidebarItemProp {
 }
 
 export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarItemProp): JSX.Element {
-  const isCollapsed = useSidebarStore((state) => state.isCollapsed);
+  const { collapsed } = useSidebar();
   const isSelected = selectedId === item.id;
   const hasChild = !!item.hasChild;
   
   const IconComponent = item.icon ? ReactIcons[item.icon] : ReactIcons.LuFileQuestion;
 
   const renderArrowIcon = () => {
-    if (isCollapsed || !hasChild) return null;
+    if (collapsed || !hasChild) return null;
     return isSelected ? (
       <ReactIcons.LuChevronUp className="text-base text-[#5C5E64]" />
     ) : (
@@ -39,15 +39,15 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
   const SidebarContent = (
     <>
       <span className="flex items-center gap-2">
-        <IconComponent className="text-[20px]" />
-        {!isCollapsed && (
+        <IconComponent className="text-xl" />
+        {!collapsed && (
           <span className="font-medium text-sm tracking-tight">
             {item.name}
           </span>
         )}
       </span>
 
-      {!isCollapsed && renderArrowIcon()}
+      {!collapsed && renderArrowIcon()}
     </>
   );
 
@@ -57,7 +57,7 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
             className={cn(
             "w-full h-10 p-3 flex items-center rounded-lg cursor-pointer text-[#5C5E64] text-center transition-all duration-300 delay-75 hover:text-black",
              isSelected && 'bg-[#F6F6F6] text-black',
-            isCollapsed 
+            collapsed 
             ? 'justify-center' 
             : 'justify-between',
             )}
@@ -69,7 +69,7 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
           onClick={() => onSelectedId(item.id)}
           className={cn(
             "w-full h-10 p-3 flex items-center rounded-lg cursor-pointer text-[#5C5E64] text-center transition-all duration-300 delay-75 hover:text-black",
-            isCollapsed 
+            collapsed 
             ? 'justify-center' 
             : 'justify-between',
             )}
@@ -90,7 +90,7 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
 
   return (
     <DropdownMenu>
-      {isCollapsed ? (
+      {collapsed ? (
         <Tooltip>
           <TooltipTrigger asChild>
             <DropdownMenuTrigger>
@@ -107,7 +107,7 @@ export default function SidebarItem({ item, onSelectedId, selectedId }: SidebarI
         </div>
       )}
       
-        {isCollapsed && hasChild
+        {collapsed && hasChild
           ? 
             <DropdownMenuContent side="right" className="w-43 p-2 border border-sidebar-border rounded-[12px]">
               <DropdownMenuGroup>

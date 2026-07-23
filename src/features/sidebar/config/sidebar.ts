@@ -82,7 +82,7 @@ export const sidebar: SidebarCategoryType[] = [
     },
     {
         id: 2,
-        name: 'Administration',
+        name: 'Admin',
         items: [
             {
                 id: 0,
