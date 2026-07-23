@@ -46,11 +46,11 @@ export default function UserForm({ onSubmit, defaultValues, loading, submitConte
         <UserManagementForm<UserFormType> 
             formOpt={formOpt} 
             onSubmit={onSubmit} 
-            inputFieldClasses='min-w-70 max-w-1/3'
-            className='w-11/12 max-w-200'
+            inputFieldClasses='w-full md:min-w-70 md:max-w-1/3'
+            className='w-full md:w-11/12 max-w-200'
         >
             <FormTitle className='text-lg mb-6.75'>Personal Information</FormTitle>
-                <FormWraper className='flex justify-between  flex-wrap'>
+                <FormWraper className='flex justify-between flex-wrap'>
                     <FormInput 
                         nameId='firstName'
                         disabled={loading}

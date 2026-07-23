@@ -30,8 +30,8 @@ export default function RoleForm({ onSubmit, defaultValues, submitContent, loadi
         <UserManagementForm 
             onSubmit={onSubmit} 
             formOpt={formOpt}
-            className='w-fit'
-            inputFieldClasses='w-full sm:w-70 max-w-80'
+            className='w-full md:w-fit'
+            inputFieldClasses='w-full md:w-70 md:max-w-80'
         >
             <FormTitle className='text-lg mb-6.75'>Role Information</FormTitle>
             <FormWraper className='w-full'>
