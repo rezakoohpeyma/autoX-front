@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import {
   Breadcrumb,
+  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
@@ -12,10 +13,13 @@ import {
 import React from 'react';
 import Link from 'next/link';
 import { FaHouse } from 'react-icons/fa6';
+import useIsMobile from '@/hooks/use-is-mobile';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from './dropdown-menu';
+import { Button } from './button';
 
 export function BreadcrumbDynamic() {
   const pathname = usePathname();
-  
+  const isMobile = useIsMobile();
   const pathSegments = pathname.split('/').filter(Boolean);
 
   return (
@@ -26,24 +30,65 @@ export function BreadcrumbDynamic() {
             <Link href="/">Home</Link>
         </BreadcrumbItem>
         
-        {pathSegments.map((segment, i) => {
-          const href = `/${pathSegments.slice(0, i + 1).join('/')}`;
-          const isLast = i === pathSegments.length - 1;
-          const label = segment.charAt(0).toUpperCase() + segment.slice(1);
+        {isMobile || pathSegments.length > 3 
+          ? (
+            <>
+              <BreadcrumbSeparator />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button size="icon-sm" variant="ghost">
+                    <BreadcrumbEllipsis />
+                    <span className="sr-only">Toggle menu</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className='w-fit'>
+                  <DropdownMenuGroup>
+                    {pathSegments.map((segment, i) => {
+                      const href = `/${pathSegments.slice(0, i + 1).join('/')}`;
+                      const isLast = i === pathSegments.length - 1;
+                      if (isLast) return;
 
-          return (
-            <React.Fragment key={href}>
+                      return (
+                        <DropdownMenuItem key={href} className='capitalize'>
+                          <BreadcrumbLink href={href}>
+                            {segment}
+                          </BreadcrumbLink>
+                        </DropdownMenuItem>
+                      )
+                    })}
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                {isLast ? (
-                  <BreadcrumbPage>{label}</BreadcrumbPage>
-                ) : (
-                  <BreadcrumbLink href={href}>{label}</BreadcrumbLink>
-                )}
+                <BreadcrumbPage className='capitalize'>
+                  {pathSegments[pathSegments.length - 1]}
+                </BreadcrumbPage>
               </BreadcrumbItem>
-            </React.Fragment>
-          );
-        })}
+            </>
+          )
+          : (
+            pathSegments.map((segment, i) => {
+              const href = `/${pathSegments.slice(0, i + 1).join('/')}`;
+              const isLast = i === pathSegments.length - 1;
+
+              return (
+                <React.Fragment key={href}>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem className='capitalize'>
+                    {isLast ? (
+                      <BreadcrumbPage>{segment}</BreadcrumbPage>
+                    ) : (
+                      <BreadcrumbLink href={href}>{segment}</BreadcrumbLink>
+                    )}
+                  </BreadcrumbItem>
+                </React.Fragment>
+              );
+            })
+          )
+        
+        }
+        
       </BreadcrumbList>
     </Breadcrumb>
   );
