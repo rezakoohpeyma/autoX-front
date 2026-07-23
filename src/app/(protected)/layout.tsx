@@ -5,7 +5,7 @@ import { JSX } from 'react';
 export default function ProtectedLayout({ children } : { children: React.ReactNode }): JSX.Element {
     return (
         <ProtectedProviders>
-            <div className='p-2 md:p-4.5 bg-white-primary h-screen overflow-hidden flex gap-4.5'>
+            <div className='p-2 md:p-4.5 bg-white-primary h-screen overflow-hidden flex gap-2 md:gap-4.5'>
                 <Sidebar />
                 <div className='flex-1 min-w-0 flex flex-col gap-4'>
                     <DashboardHeader />
