@@ -1,10 +1,9 @@
-import { useMediaQuery } from "usehooks-ts";
 import { useSidebarStore } from "../store/use-sidebar-store";
-import { MOBILE_WIDTH } from "../config/sidebar-width";
+import useIsMobile from "@/hooks/use-is-mobile";
 
 export default function useSidebar() {
     const store = useSidebarStore()
-    const isMobile = useMediaQuery(`(max-width: ${MOBILE_WIDTH}px)`);
+    const isMobile = useIsMobile();
     
     return {
         ...store,
