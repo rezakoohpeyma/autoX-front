@@ -9,7 +9,7 @@ export default function DataTableToolbar({ children, className, ...other }: Data
     return (
         <div 
             className={
-                cn('flex justify-between items-center',
+                cn('flex justify-between items-center flex-wrap gap-4',
                     className
                 )
             }

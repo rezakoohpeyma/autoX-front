@@ -7,9 +7,9 @@ export default function ProtectedLayout({ children } : { children: React.ReactNo
         <ProtectedProviders>
             <div className='p-4.5 bg-white-primary h-screen overflow-hidden flex gap-4.5'>
                 <Sidebar />
-                <div className='flex-1 flex flex-col gap-4'>
+                <div className='flex-1 min-w-0 flex flex-col gap-4'>
                     <DashboardHeader />
-                    <main className='flex-1 overflow-scroll px-5'>
+                    <main className='flex-1 min-w-0 overflow-y-scroll px-5'>
                         {children}
                     </main> 
                 </div>

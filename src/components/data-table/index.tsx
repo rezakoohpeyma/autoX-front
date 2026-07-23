@@ -47,7 +47,7 @@ export function DataTable<TData>({
 }: DataTableProps<TData>) {
 
   return (
-    <div className={cn("flex justify-center flex-col gap-3", className)} {...other}>
+    <div className={cn("flex justify-center flex-col gap-3 w-full", className)} {...other}>
       {children}
 
       {/* Table Loading */}
@@ -61,27 +61,37 @@ export function DataTable<TData>({
       {/* Table */}
       {!loading && 
           <>
-              <Table className="overflow-hidden rounded-xs! bg-white border-b">
-                <DataTableColumnHeader headerGroups={table.getHeaderGroups()} />
-                <TableBody>
-                  {table.getRowModel().rows?.length ? (
-                    table.getRowModel().rows.map((row) => (
-                      <TableRow
-                        key={row.id}
-                        data-state={row.getIsSelected() && "selected"}
-                      >
-                        {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id}>
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    ))
-                  ) : (
-                    <DataTableEmpty colSpan={table.getAllColumns().length}/>
-                  )}
-                </TableBody>
-              </Table>
+              <div className="overflow-x-auto relative">
+                <Table className="min-w-200 rounded-xs! bg-white border-b">
+                  <DataTableColumnHeader headerGroups={table.getHeaderGroups()} />
+                  <TableBody>
+                    {table.getRowModel().rows?.length ? (
+                      table.getRowModel().rows.map((row) => (
+                        <TableRow
+                          key={row.id}
+                          data-state={row.getIsSelected() && "selected"}
+                        >
+                          {row.getVisibleCells().map((cell) => (
+                            <TableCell 
+                              key={cell.id}
+                              className={
+                                  cn(
+                                    cell.column.id === 'actions' && "sticky right-0 bg-white z-10",
+                                    cell.column.id === 'select' && "sticky left-0 bg-white z-10",
+                                  )
+                              }
+                            >
+                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      ))
+                    ) : (
+                      <DataTableEmpty colSpan={table.getAllColumns().length}/>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
               <DataTablePagination
                   pagination={pagination}  
                   onPageChange={onPageChange}

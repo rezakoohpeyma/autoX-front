@@ -27,7 +27,7 @@ export default function DataTableSearch({ queryKey, placeholder = "Searching..."
 
     return (
         <Input
-            className='max-w-70 rounded-sm! bg-search-box-bg border border-search-box-border outline-0 h-6.5 text-xs'
+            className='w-full md:max-w-70 h-8 md:h-6.5 rounded-sm! bg-search-box-bg border border-search-box-border outline-0 text-xs'
             type='text'
             value={inputValue}
             onChange={(e) =>

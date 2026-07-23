@@ -67,7 +67,7 @@ export default function UsersTable(): JSX.Element {
         >
             <DataTableToolbar>
                 <DataTableSearch queryKey={SEARCH_KEY} placeholder='Searching Name...'/>
-                <DataTableWraper className='gap-2'>
+                <DataTableWraper className='gap-2 w-full md:w-fit flex-wrap'>
                     <UsersExportButton />
                     <UsersAddButton />
                     <DataTableRefreshButton onRefresh={handleRefresh} />

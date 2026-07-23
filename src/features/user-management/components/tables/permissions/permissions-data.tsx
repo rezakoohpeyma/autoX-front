@@ -65,7 +65,7 @@ export default function PermissionsTable(): JSX.Element {
         >
             <DataTableToolbar>
                 <DataTableSearch queryKey={SEARCH_KEY} placeholder='Searching permission...'/>
-                <DataTableWraper className='gap-2'>
+                <DataTableWraper className='gap-2 w-full md:w-fit flex-wrap'>
                     <PermissionsExportButton />
                     <DataTableRefreshButton onRefresh={handleRefresh} />
                 </DataTableWraper>

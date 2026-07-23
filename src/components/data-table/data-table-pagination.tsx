@@ -41,7 +41,7 @@ export default function DataTablePagination({
 );
     return (
         <div 
-            className={cn("flex justify-between items-center mt-7.5", className)}
+            className={cn("flex justify-between items-center flex-col-reverse md:flex-row gap-4 mt-7.5", className)}
             {...others}
         >
             <div>
@@ -115,14 +115,14 @@ export default function DataTablePagination({
                     </Button>
                 </div>
             </div>
-            <div>
+            <div className="w-full sm:w-fit">
                 <Select 
                     value={String(limit)}
                     onValueChange={(value) => {
                         onPageLimitChange(Number(value))
                     }}
                 >
-                    <SelectTrigger className='rounded-sm bg-primary text-white! border-0! cursor-pointer'>
+                    <SelectTrigger className='rounded-sm bg-primary text-white! border-0! cursor-pointer w-full'>
                         <SelectValue placeholder={limit}/>
                     </SelectTrigger>
                     <SelectContent>

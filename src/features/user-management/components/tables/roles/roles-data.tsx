@@ -65,7 +65,7 @@ export default function RolesTable(): JSX.Element {
         >
             <DataTableToolbar>
                 <DataTableSearch queryKey={SEARCH_KEY} placeholder='Searching Roles...'/>
-                <DataTableWraper className='gap-2'>
+                <DataTableWraper className='gap-2 w-full md:w-fit flex-wrap'>
                     <RolesExportButton />
                     <RolesAddButton />
                     <DataTableRefreshButton onRefresh={handleRefresh} />
